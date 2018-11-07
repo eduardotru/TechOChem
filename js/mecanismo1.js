@@ -62,7 +62,7 @@ function drawCurves() {
 
 var stage = new Konva.Stage({
     container: 'canvas',
-    width: width-200,
+    width: width-50,
     height: height-200
 });
 
