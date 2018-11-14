@@ -7,134 +7,172 @@ var stage = new Konva.Stage({
   height: height
 });
 
-
 var layer = new Konva.Layer();
 
+let hydrogens = [];
 
-// Generic function to draw an atom with a letter
-function atom(x, y, draggable, color, stroke, radius, name, textColor) {
-  let group = new Konva.Group({
-    draggable: draggable
+// Hidrogeno de la izquierda
+let hydrogen1 = hydrogen(100, 200, false);
+
+// Hidrogenos de arriba
+let hydrogen2 = hydrogen(200, 300, false);
+let hydrogen3 = hydrogen(400, 300, false);
+
+// Hidrogeno de la derecha
+let hydrogen4 = hydrogen(500, 200, false);
+
+// Hidrogenos de abajo
+let hydrogen5 = hydrogen(200, 300, false);
+let hydrogen6 = hydrogen(300, 300, false);
+let hydrogen7 = hydrogen(400, 300, false);
+
+// Hidrogeno del oxigeno
+let hydrogen8 = hydrogen(400, 70, false);
+
+hydrogens.push(hydrogen1);
+hydrogens.push(hydrogen2);
+hydrogens.push(hydrogen3);
+hydrogens.push(hydrogen4);
+hydrogens.push(hydrogen5);
+hydrogens.push(hydrogen6);
+hydrogens.push(hydrogen7);
+hydrogens.push(hydrogen8);
+
+let carbons = [];
+
+// Carbonos
+let carbon1 = carbon(200, 200, false);
+let carbon2 = carbon(300, 200, false);
+let carbon3 = carbon(400, 200, false);
+
+carbons.push(carbon1);
+carbons.push(carbon2);
+carbons.push(carbon3);
+
+// Oxigeno del carbono
+let oxygen1 = oxygen(300, 70, false);
+
+// Oxigeno solitario
+let oxygen2 = oxygen(700, 100, false);
+
+// Crear enlaces
+
+let bonds = [];
+
+bonds.push(singleBond(hydrogen1, carbon1)); // 0
+bonds.push(singleBond(hydrogen2, carbon1)); // 1
+bonds.push(singleBond(hydrogen3, carbon3)); // 2
+bonds.push(singleBond(hydrogen4, carbon3)); // 3
+bonds.push(singleBond(hydrogen5, carbon1)); // 4
+bonds.push(singleBond(hydrogen6, carbon2)); // 5
+bonds.push(singleBond(hydrogen7, carbon3)); // 6
+bonds.push(singleBond(hydrogen8, oxygen1)); // 7
+bonds.push(singleBond(carbon1, carbon2)); // 8
+bonds.push(singleBond(carbon2, carbon3)); // 9
+bonds.push(singleBond(carbon2, oxygen1)); // 10
+
+bonds.map((bond) => {
+  bond.on('mouseout touchend', (e) => {
+    e.target.stroke('black');
+    layer.draw();
   });
 
-  let t = new Konva.Text({
-    x: x-11,
-    y: y-11,
-    text: name,
-    fontSize: 30,
-    fill: textColor,
+  bond.on('mouseover', (e) => {
+    e.target.stroke('red');
+    layer.draw();
   });
+});
 
-  let a = new Konva.Circle({
-    x: x,
-    y: y,
-    radius: radius,
-    fill: color,
-    stroke: stroke,
-    strokeWidth: 4,
-  });
-
-  group.add(a);
-  group.add(t);
-  return group;
-}
-
-// Atom that can be created.
-function carbon(x, y, draggable) {
-  return atom(x, y, draggable, '#333', '#000', 5*4 + 20, 'C', '#fff');
-}
-
-function oxygen(x, y, draggable) {
-  return atom(x, y, draggable, '#f00', '#a00', 7*4 + 20, 'O', '#000');
-}
-
-function hydrogen(x, y, draggable) {
-  return atom(x, y, draggable, '#999', '#777', 1*4 + 20, 'H', '#000');
-}
-
-// Bonds between atoms
-function singleBond(atom1, atom2) {
-  return new Konva.Line({
-    points: [atom1.children[0].attrs.x, atom1.children[0].attrs.y, atom2.children[0].attrs.x, atom2.children[0].attrs.y],
-    stroke: '#000',
-    strokeWidth: 8,
-    lineCap: 'round'
-  });
-}
-
-function doubleBond(atom1, atom2) {
-  let g = new Konva.Group({
-    draggable: false
-  });
-  let line1 = singleBond(atom1, atom2);
-  let line2 = singleBond(atom1, atom2);
-  line1.move({
-    x: -8,
-    y: -8,
-  });
-
-  line2.move({
-    x: 8,
-    y: 8
-  });
-
-  g.add(line1);
-  g.add(line2);
-  return g;
-}
-
-// Actions in events
-function destroy(e) {
+bonds[5].on('click', (e) => {
   e.target.destroy();
   layer.draw();
+  hydrogen6.draggable(true);
+  hydrogen6.on('mouseover', (e) => {
+    document.body.style.cursor = 'grab';
+  });
+  hydrogen6.on('mouseout touchend', (e) => {
+    document.body.style.cursor = 'default';
+  });
+});
+
+bonds[7].on('click', (e) => {
+  e.target.destroy();
+  hydrogen8.draggable(true);
+  hydrogen8.on('mouseover', (e) => {
+    document.body.style.cursor = 'grab';
+  });
+  hydrogen8.on('mouseout touchend', (e) => {
+    document.body.style.cursor = 'default';
+  });
+
+  bonds[10].destroy();
+  let db = doubleBond(oxygen1, carbon2);
+  layer.add(db);
+  db.moveToBottom();
+  layer.draw();
+});
+
+hydrogen8.on('dragmove', (e) => {
+  if(haveIntersection(e.target, oxygen2)) {
+    oxygen2.children[0].fill('purple');
+  } else {
+    oxygen2.children[0].fill('#f00');
+  }
+  layer.draw();
+});
+
+hydrogen8.on('dragend', (e) => {
+  if(haveIntersection(e.target, oxygen2)) {
+    hydrogen8.draggable(false);
+    let b = singleBond(hydrogen8, oxygen2);
+    layer.add(b);
+    b.moveToBottom();
+  }
+  layer.draw();
+});
+
+hydrogen6.on('dragmove', (e) => {
+  if(haveIntersection(e.target, oxygen2)) {
+    oxygen2.children[0].fill('purple');
+  } else {
+    oxygen2.children[0].fill('#f00');
+  }
+  layer.draw();
+});
+
+hydrogen6.on('dragend', (e) => {
+  if(haveIntersection(e.target, oxygen2)) {
+    hydrogen6.draggable(false);
+    let b = singleBond(hydrogen6, oxygen2);
+    layer.add(b);
+    b.moveToBottom();
+  }
+  layer.draw();
+});
+
+function haveIntersection(atom1, atom2) {
+  console.log(atom1.children[0].position());
+  console.log(atom2.children[0].position());
+  console.log("---------------");
+  let dist = Math.pow(atom1.position().x - atom2.position().x, 2) + Math.pow(atom1.position().y - atom2.position().y, 2);
+  dist = Math.sqrt(dist);
+  return dist - 20 < atom1.children[0].radius() + atom2.children[0].radius();
 }
 
-let hydrogen1 = hydrogen(100, 200, false);
-let hydrogen2 = hydrogen(300, 200, false);
-let hydrogen3 = hydrogen(200, 100, false);
-let hydrogen4 = hydrogen(200, 300, false);
-let carbon1 = carbon(200, 200, false);
+bonds.map((b) => {
+  layer.add(b);
+})
 
-let ch4 = new Konva.Group({
-  draggable: true
+carbons.map((c) => {
+  layer.add(c);
 });
 
-let bond1 = singleBond(hydrogen1, carbon1);
-let bond2 = singleBond(hydrogen2, carbon1);
-let bond3 = singleBond(hydrogen3, carbon1);
-let bond4 = singleBond(hydrogen4, carbon1);
+layer.add(oxygen1);
 
-bond1.on('click', destroy);
-
-ch4.add(bond1);
-ch4.add(hydrogen1);
-ch4.add(bond2);
-ch4.add(hydrogen2);
-ch4.add(bond2);
-ch4.add(hydrogen2);
-ch4.add(bond3);
-ch4.add(hydrogen3);
-ch4.add(bond4);
-ch4.add(hydrogen4);
-ch4.add(carbon1);
-
-let oxygen1 = oxygen(400, 100, false);
-let oxygen2 = oxygen(700, 100, false);
-let carbon2 = carbon(550, 100, false);
-
-let doubleBond1 = doubleBond(oxygen1, carbon2);
-let doubleBond2 = doubleBond(oxygen2, carbon2);
-
-let co2 = new Konva.Group({
-  draggable: true
+hydrogens.map((h) => {
+  layer.add(h);
 });
 
-co2.add(doubleBond1);
-co2.add(doubleBond2);
-co2.add(oxygen1);
-co2.add(oxygen2);
-co2.add(carbon2);
+layer.add(oxygen2);
 
-layer.add(co2);
-layer.add(ch4);
 stage.add(layer);
