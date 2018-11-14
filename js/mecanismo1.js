@@ -143,6 +143,7 @@ hydrogen6.on('dragmove', (e) => {
 hydrogen6.on('dragend', (e) => {
   if(haveIntersection(e.target, oxygen2)) {
     hydrogen6.draggable(false);
+    console.log(hydrogen6.children[0].getAbsolutePosition());
     let b = singleBond(hydrogen6, oxygen2);
     layer.add(b);
     b.moveToBottom();
@@ -151,10 +152,10 @@ hydrogen6.on('dragend', (e) => {
 });
 
 function haveIntersection(atom1, atom2) {
-  console.log(atom1.children[0].position());
-  console.log(atom2.children[0].position());
+  console.log(atom1.children[0].getAbsolutePosition());
+  console.log(atom2.children[0].getAbsolutePosition());
   console.log("---------------");
-  let dist = Math.pow(atom1.position().x - atom2.position().x, 2) + Math.pow(atom1.position().y - atom2.position().y, 2);
+  let dist = Math.pow(atom1.children[0].getAbsolutePosition().x - atom2.children[0].getAbsolutePosition().x, 2) + Math.pow(atom1.children[0].getAbsolutePosition().y - atom2.children[0].getAbsolutePosition().y, 2);
   dist = Math.sqrt(dist);
   return dist - 20 < atom1.children[0].radius() + atom2.children[0].radius();
 }

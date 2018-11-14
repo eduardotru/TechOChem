@@ -42,7 +42,7 @@ const hydrogen = (x, y, draggable) => {
 // Bonds between atoms
 const singleBond = (atom1, atom2) => {
   return new Konva.Line({
-    points: [atom1.children[0].attrs.x, atom1.children[0].attrs.y, atom2.children[0].attrs.x, atom2.children[0].attrs.y],
+    points: [atom1.children[0].getAbsolutePosition().x, atom1.children[0].getAbsolutePosition().y, atom2.children[0].getAbsolutePosition().x, atom2.children[0].getAbsolutePosition().y],
     stroke: '#000',
     strokeWidth: 8,
     lineCap: 'round'
