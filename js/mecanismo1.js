@@ -1,6 +1,7 @@
 var width = window.innerWidth;
 var height = window.innerHeight;
 
+var cont = 0;
 var stage = new Konva.Stage({
   container: 'canvas',
   width: width,
@@ -125,6 +126,7 @@ hydrogen8.on('dragend', (e) => {
   if(haveIntersection(e.target, oxygen2)) {
     hydrogen8.draggable(false);
     let b = singleBond(hydrogen8, oxygen2);
+    cont++;
     layer.add(b);
     b.moveToBottom();
   }
@@ -137,6 +139,7 @@ hydrogen6.on('dragmove', (e) => {
   } else {
     oxygen2.children[0].fill('#f00');
   }
+  completed();
   layer.draw();
 });
 
@@ -145,9 +148,11 @@ hydrogen6.on('dragend', (e) => {
     hydrogen6.draggable(false);
     console.log(hydrogen6.children[0].getAbsolutePosition());
     let b = singleBond(hydrogen6, oxygen2);
+    cont++;
     layer.add(b);
     b.moveToBottom();
   }
+  completed();
   layer.draw();
 });
 
@@ -160,6 +165,15 @@ function haveIntersection(atom1, atom2) {
   return dist - 20 < atom1.children[0].radius() + atom2.children[0].radius();
 }
 
+
+function completed(){
+  if(cont>1)
+    swal(
+      '¡Buen trabajo!',
+      '¡Has completado el mecanismo de reacción de la oxidación de alcohol!',
+      'success'
+    )
+}
 bonds.map((b) => {
   layer.add(b);
 })
