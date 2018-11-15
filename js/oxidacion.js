@@ -130,6 +130,7 @@ hydrogen8.on('dragend', (e) => {
     layer.add(b);
     b.moveToBottom();
   }
+  completed();
   layer.draw();
 });
 
@@ -139,7 +140,6 @@ hydrogen6.on('dragmove', (e) => {
   } else {
     oxygen2.children[0].fill('#f00');
   }
-  completed();
   layer.draw();
 });
 
