@@ -1,479 +1,106 @@
 { "atoms": 
   [
     {
-      "attrs": { "id": "carbon1" },
-      "children": [
-        {
-          "attrs": {
-            "x": 125,
-            "y": 300,
-            "radius": 40,
-            "fill": "#333",
-            "stroke": "#000",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 115,
-            "y": 290,
-            "text": "C",
-            "fontSize": 30,
-            "fill": "#fff"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "carbon1",
+      "type": "carbon",
+      "x": 125,
+      "y": 300
     },
-
     {
-      "attrs": { "id": "carbon2" },
-      "children": [
-        {
-          "attrs": {
-            "x": 250,
-            "y": 200,
-            "radius": 40,
-            "fill": "#333",
-            "stroke": "#000",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 240,
-            "y": 190,
-            "text": "C",
-            "fontSize": 30,
-            "fill": "#fff"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "carbon2",
+      "type": "carbon",
+      "x": 250,
+      "y": 200
     },
-
     {
-      "attrs": { "id": "oxygen" },
-      "children": [
-        {
-          "attrs": {
-            "x": 375,
-            "y": 400,
-            "radius": 48,
-            "fill": "#f00",
-            "stroke": "#a00",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 365,
-            "y": 390,
-            "text": "O",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "oxygen",
+      "type": "oxygen",
+      "x": 375,
+      "y": 400
     },
-
     {
-      "attrs": { "id": "carbon3" },
-      "children": [
-        {
-          "attrs": {
-            "x": 500,
-            "y": 200,
-            "radius": 40,
-            "fill": "#333",
-            "stroke": "#000",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 490,
-            "y": 190,
-            "text": "C",
-            "fontSize": 30,
-            "fill": "#fff"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "carbon3",
+      "type": "carbon",
+      "x": 500,
+      "y": 200
     },
-
     {
-      "attrs": { "id": "carbon4" },
-      "children": [
-        {
-          "attrs": {
-            "x": 625,
-            "y": 300,
-            "radius": 40,
-            "fill": "#333",
-            "stroke": "#000",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 615,
-            "y": 290,
-            "text": "C",
-            "fontSize": 30,
-            "fill": "#fff"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "carbon4",
+      "type": "carbon",
+      "x": 625,
+      "y": 300
     },
-
     {
-      "attrs": { "id": "bromium" },
-      "children": [
-        {
-          "attrs": {
-            "x": 875,
-            "y": 100,
-            "radius": 48,
-            "fill": "#A52A2A",
-            "stroke": "#831414",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 860,
-            "y": 90,
-            "text": "Br",
-            "fontSize": 30,
-            "fill": "#fff"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "bromium",
+      "type": "bromium",
+      "x": 875,
+      "y": 100
     },
-
     {
-      "attrs": { "id": "hydrogen1" },
-      "children": [
-        {
-          "attrs": {
-            "x": 43,
-            "y": 300,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 33,
-            "y": 290,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen1",
+      "type": "hydrogen",
+      "x": 43,
+      "y": 300
     },
-
     {
-      "attrs": { "id": "hydrogen2" },
-      "children": [
-        {
-          "attrs": {
-            "x": 125,
-            "y": 200,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 115,
-            "y": 190,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen2",
+      "type": "hydrogen",
+      "x": 125,
+      "y": 200
     },
-
     {
-      "attrs": { "id": "hydrogen3" },
-      "children": [
-        {
-          "attrs": {
-            "x": 125,
-            "y": 400,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 115,
-            "y": 390,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen3",
+      "type": "hydrogen",
+      "x": 125,
+      "y": 400
     },
-
     {
-      "attrs": { "id": "hydrogen4" },
-      "children": [
-        {
-          "attrs": {
-            "x": 250,
-            "y": 100,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 240,
-            "y": 90,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen4",
+      "type": "hydrogen",
+      "x": 250,
+      "y": 100
     },
-
     {
-      "attrs": { "id": "hydrogen5" },
-      "children": [
-        {
-          "attrs": {
-            "x": 250,
-            "y": 300,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 240,
-            "y": 290,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen5",
+      "type": "hydrogen",
+      "x": 250,
+      "y": 300
     },
-
     {
-      "attrs": { "id": "hydrogen6" },
-      "children": [
-        {
-          "attrs": {
-            "x": 500,
-            "y": 100,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 490,
-            "y": 90,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen6",
+      "type": "hydrogen",
+      "x": 500,
+      "y": 100
     },
-
     {
-      "attrs": { "id": "hydrogen7" },
-      "children": [
-        {
-          "attrs": {
-            "x": 500,
-            "y": 300,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 490,
-            "y": 290,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen7",
+      "type": "hydrogen",
+      "x": 500,
+      "y": 300
     },
-
     {
-      "attrs": { "id": "hydrogen8" },
-      "children": [
-        {
-          "attrs": {
-            "x": 625,
-            "y": 200,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 615,
-            "y": 190,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen8",
+      "type": "hydrogen",
+      "x": 625,
+      "y": 200
     },
-
     {
-      "attrs": { "id": "hydrogen9" },
-      "children": [
-        {
-          "attrs": {
-            "x": 625,
-            "y": 400,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 615,
-            "y": 390,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen9",
+      "type": "hydrogen",
+      "x": 625,
+      "y": 400
     },
-
     {
-      "attrs": { "id": "hydrogen10" },
-      "children": [
-        {
-          "attrs": {
-            "x": 750,
-            "y": 300,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 740,
-            "y": 290,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen10",
+      "type": "hydrogen",
+      "x": 750,
+      "y": 300
     },
-
     {
-      "attrs": { "id": "hydrogen11" },
-      "children": [
-        {
-          "attrs": {
-            "x": 750,
-            "y": 100,
-            "radius": 24,
-            "fill": "#999",
-            "stroke": "#777",
-            "strokeWidth": 4
-          },
-          "className": "Circle"
-        },
-        {
-          "attrs": {
-            "x": 740,
-            "y": 90,
-            "text": "H",
-            "fontSize": 30,
-            "fill": "#000"
-          },
-          "className": "Text"
-        }
-      ],
-      "className": "Group"
+      "id": "hydrogen11",
+      "type": "hydrogen",
+      "x": 750,
+      "y": 100
     }
   ],
 
