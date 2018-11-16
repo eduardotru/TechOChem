@@ -45,17 +45,18 @@ const bromium = (id, x, y, draggable) => {
 }
 
 // Bonds between atoms
-const singleBond = (atom1, atom2) => {
+const singleBond = (atom1, atom2, classes = []) => {
   return new Konva.Line({
-    points: [atom1.children[0].x(), atom1.children[0].y(),
-             atom2.children[0].x(), atom2.children[0].y()],
+    points: [atom1.children[0].getAbsolutePosition().x, atom1.children[0].getAbsolutePosition().y,
+             atom2.children[0].getAbsolutePosition().x, atom2.children[0].getAbsolutePosition().y],
     stroke: '#000',
     strokeWidth: 8,
-    lineCap: 'round'
+    lineCap: 'round',
+    name: classes.join(' ')
   });
 }
 
-const doubleBond = (atomId1, atomId2) => {
+const doubleBond = (atomId1, atomId2, classes = []) => {
   let g = new Konva.Group({
     draggable: false
   });
@@ -99,6 +100,9 @@ const createAtomsInLayer = (atomsInfo, layer) => {
     if (atom.hasOwnProperty('draggable'))
       draggable = atom.draggable;
     let atomNode = atomCreation[atom.type](atom.id, atom.x, atom.y, draggable);
+    if (atom.hasOwnProperty('futurePair')) {
+      atomNode.futurePair = atom.futurePair;
+    }
     layer.add(atomNode);
   });
 }
@@ -107,10 +111,17 @@ const createBondsInLayer = (bondsInfo, layer) => {
   bondsInfo.map((bondInfo) => {
     let atom1 = layer.findOne(`#${bondInfo.atom1}`);
     let atom2 = layer.findOne(`#${bondInfo.atom2}`);
-    let bondNode = bondCreation[bondInfo.type](atom1, atom2);
+    let classes = [];
+    if (bondInfo.hasOwnProperty('classes'))
+      classes = bondInfo.classes;
+    let bondNode = bondCreation[bondInfo.type](atom1, atom2, classes);
+    bondNode.atom1 = atom1;
+    bondNode.atom2 = atom2;
+    if (bondInfo.hasOwnProperty('customCallbacks'))
+      bondNode.customCallbacks = bondInfo.customCallbacks;
     layer.add(bondNode);
     bondNode.moveToBottom();
   });
 }
 
-export { createAtomsInLayer, createBondsInLayer };
+export { createAtomsInLayer, createBondsInLayer, singleBond };
