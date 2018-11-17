@@ -16,8 +16,8 @@ let hydrogens = [];
 let hydrogen1 = hydrogen(100, 200, false);
 
 // Hidrogenos de arriba
-let hydrogen2 = hydrogen(200, 300, false);
-let hydrogen3 = hydrogen(400, 300, false);
+let hydrogen2 = hydrogen(200, 100, false);
+let hydrogen3 = hydrogen(400, 100, false);
 
 // Hidrogeno de la derecha
 let hydrogen4 = hydrogen(500, 200, false);
