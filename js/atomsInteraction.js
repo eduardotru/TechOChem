@@ -168,7 +168,7 @@ const searchForPairOnDragCallback = (paramsObj, layer, stage) => {
   atom1.on('dragend', (e) => {
     if (atom2.isEnabledToPair && areNear(atom1, atom2, scale)) {
       atom2.brightness(0);
-      atom2.draggable(false);
+      atom1.draggable(false);
       let newBond = singleBond(atom1, atom2);
       newBond.scale({x: 1 / scale, y: 1 / scale});
       newBond.strokeWidth(newBond.strokeWidth() * scale);
