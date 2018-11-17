@@ -169,11 +169,29 @@ const searchForPairOnDragCallback = (paramsObj, layer, stage) => {
     if (atom2.isEnabledToPair && areNear(atom1, atom2, scale)) {
       atom2.brightness(0);
       atom1.draggable(false);
+
       let newBond = singleBond(atom1, atom2);
       newBond.scale({x: 1 / scale, y: 1 / scale});
       newBond.strokeWidth(newBond.strokeWidth() * scale);
       layer.add(newBond);
       newBond.moveToBottom();
+
+      // Checks if the first atom was an ion, in which case deletes the ion charge, since the atom
+      // has been neutralized with the new bond.
+      let atom1Ion = atom1.findOne(`#${atom1.id()}-ion`);
+      if (atom1Ion != null) {
+        atom1Ion.destroy();
+        atom1.clearCache();
+      }
+      
+      // Checks if the second atom was an ion, in which case deletes the ion charge, since the atom
+      // has been neutralized with the new bond.
+      let atom2Ion = atom2.findOne(`#${atom2.id()}-ion`);
+      if (atom2Ion != null) {
+        atom2Ion.destroy();
+        atom2.clearCache();
+      }
+
       layer.draw();
       currentWinConditions++;
       validateWin();
@@ -181,13 +199,67 @@ const searchForPairOnDragCallback = (paramsObj, layer, stage) => {
   });
 }
 
+/**
+ * Transforms an atom into an ion, meaning that it adds a positive or negative charge to it, which
+ * will be displayed in the right corner of the atom's shape.
+ * @param {Object} paramsObj An object whose properties contain values to be used in this function.
+ * @param {string} paramsObj.atom Identifier of the atom that will be set to an ion.
+ * @param {string} paramsObj.type Type of the ion ('positive' or 'negative').
+ * @param {Konva.Layer} layer Layer in which the atom is found.
+ * @param {Konva.Stage} stage Stage in which the layer lies.
+ */
+const setAtomAsIonCallback = (paramsObj, layer, stage) => {
+  let atom = layer.findOne(`#${paramsObj.atom}`);
+  let originX = atom.children[0].getX();
+  let originY = atom.children[0].getY();
+  let scale = stage.scale().x;
+  let atomRadius = atom.children[0].radius() * scale;
+  let ionPosX = originX + atomRadius * Math.cos(Math.PI / 4);
+  let ionPosY = originY - atomRadius * Math.sin(Math.PI / 4);
+  let ionRadius = 10 * scale;
+  let ionSymbol = (paramsObj.type == 'positive') ? '+' : '-';
+  let ionColor = atom.children[0].fill();
+  let ionStroke = atom.children[0].stroke();
+  let ionTextColor = atom.children[1].fill();
+  let ionFontSize = 18 * scale;
+
+  let ion = new Konva.Group({
+    id: `${paramsObj.atom}-ion`
+  });
+
+  let ionShape = new Konva.Circle({
+    x: ionPosX,
+    y: ionPosY,
+    radius: ionRadius,
+    fill: ionColor,
+    stroke: ionStroke,
+    strokeWidth: 2 * scale
+  });
+
+  let ionText = new Konva.Text({
+    x: ionPosX - 5 * scale,
+    y: ionPosY - 8 * scale,
+    text: ionSymbol,
+    fontSize: ionFontSize,
+    fill: ionTextColor
+  });
+
+  ion.add(ionShape);
+  ion.add(ionText);
+  atom.add(ion);
+  atom.cache();
+  layer.draw();
+}
+
+
 /** @type {Object.<string, function>} A dictionary of possible callback functions to be used */
 let availableCallbacks = {
   addPropertiesToAtom: addPropertiesToAtomCallback,
   createDoubleBond: createDoubleBondCallback,
   destroyElement: destroyElementCallback,
   makeDraggable: makeDraggableCallback,
-  searchForPairOnDrag: searchForPairOnDragCallback
+  searchForPairOnDrag: searchForPairOnDragCallback,
+  setAtomAsIon: setAtomAsIonCallback
 }
 
 /**
