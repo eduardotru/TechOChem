@@ -4,11 +4,14 @@ let currentWinConditions = 0;
 let totalWinConditions = 0;
 let winMessage = '';
 
+// HELPER FUNCTIONS
+
 /**
  * Checks whether two atoms are near each other.
  * @param {Konva.Group} atom1 First atom node.
  * @param {Konva.Group} atom2 Second atom node.
  * @param {number} scale Scale of the Konva.js stage the two atoms are in.
+ * @returns {boolean} True if the atoms are close to each other. False otherwise.
  */
 const areNear = (atom1, atom2, scale) => {
   let x = atom1.children[0].getAbsolutePosition().x - atom2.children[0].getAbsolutePosition().x;
@@ -18,6 +21,56 @@ const areNear = (atom1, atom2, scale) => {
   return dist < (atom1.children[0].radius() + 2 * atom2.children[0].radius()) * scale;
 }
 
+/** 
+  * Sets the number of conditions to meet in order to win (successfully solve a reaction mechanism).
+  * @param {number} numConditions Number of conditions to be met in order to win.
+  * @param {string} message Success message to be displayed when all the win conditions are met.
+  */
+ const setWinConditions = (numConditions, message) => {
+  totalWinConditions = numConditions;
+  winMessage = message;
+}
+
+/**
+ * Validates whether all of the winning conditions have been met, in which case displays a success
+ * alert message.
+*/
+const validateWin = () => {
+  if (currentWinConditions == totalWinConditions) {
+    swal('¡Buen trabajo!', winMessage, 'success');
+  }
+}
+
+/**
+ * Retrieves the customCallback array for a class within a specific bond. The customCallback array
+ * basically contains objects that specify the names of functions and their parameters (which will
+ * be called when the action associated with the class of the specific bond occurs).
+ * @param {Konva.Node} bond The bond from which the customCallback array will be retrieved.
+ * @param {string} bondClass The name of the class for which the customCallback array will be
+ * retrieved from the bond.
+ * @returns {Array.<Object>} The customCallback array.
+ */
+const getCustomCallbacks = (bond, bondClass) => {
+  let customCallbacks = [];
+  if (bond.hasOwnProperty('customCallbacks') && bond.customCallbacks.hasOwnProperty(bondClass)) {
+    customCallbacks = bond.customCallbacks[bondClass];
+  }
+
+  return customCallbacks;
+}
+
+
+// FUNCTIONS THAT ACT AS CALLBACKS
+
+/**
+ * Adds properties to a given atom, without assigning them a specific value, just the boolean value
+ * 'true'.
+ * @param {Object} paramsObj An object whose properties contain values to be used in this function.
+ * @param {string} paramsObj.atom Identifier of the atom to which properties are to be added.
+ * @param {string[]} paramsObj.properties Name of the properties to be added to the atom.
+ * @param {Konva.Layer} layer Layer in which the atom is found.
+ * @param {Konva.Stage} stage Stage in which the layer lies.
+ */
 const addPropertiesToAtomCallback = (paramsObj, layer, stage) => {
   let atom = layer.findOne(`#${paramsObj.atom}`);
   paramsObj.properties.map((property) => {
@@ -25,6 +78,14 @@ const addPropertiesToAtomCallback = (paramsObj, layer, stage) => {
   });
 }
 
+/**
+ * Creates a double bond between two atoms.
+ * @param {Object} paramsObj An object whose properties contain values to be used in this function.
+ * @param {string} paramsObj.atom1 Identifier of the first atom to be included in the bond.
+ * @param {string} paramsObj.atom2 Identifier of the second atom to be included in the bond.
+ * @param {Konva.Layer} layer Layer in which the atoms are found.
+ * @param {Konva.Stage} stage Stage in which the layer lies.
+ */
 const createDoubleBondCallback = (paramsObj, layer, stage) => {
   let atom1 = layer.findOne(`#${paramsObj.atom1}`);
   let atom2 = layer.findOne(`#${paramsObj.atom2}`);
@@ -39,12 +100,27 @@ const createDoubleBondCallback = (paramsObj, layer, stage) => {
   layer.draw();
 }
 
+/**
+ * Destroys a Konva.js element or node.
+ * @param {Object} paramsObj An object whose properties contain values to be used in this function.
+ * @param {string} paramsObj.element Identifier of the element to be destroyed.
+ * @param {Konva.Layer} layer Layer in which the element is found.
+ * @param {Konva.Stage} stage Stage in which the layer lies.
+ */
 const destroyElementCallback = (paramsObj, layer, stage) => {
   let element = layer.find(`#${paramsObj.element}`);
   element.destroy();
   layer.draw();
 }
 
+/**
+ * Allows a Konva.js element to be draggable and also adds event listeners to it so that proper
+ * grab-like cursor styles appear when interacting with it.
+ * @param {Object} paramsObj An object whose properties contain values to be used in this function.
+ * @param {string} paramsObj.element Identifier of the element to be made draggable.
+ * @param {Konva.Layer} layer Layer in which the element is found.
+ * @param {Konva.Stage} stage Stage in which the layer lies.
+ */
 const makeDraggableCallback = (paramsObj, layer, stage) => {
   let element = layer.find(`#${paramsObj.element}`);
   element.draggable(true);
@@ -62,6 +138,18 @@ const makeDraggableCallback = (paramsObj, layer, stage) => {
   });
 }
 
+/**
+ * Adds an event listener to a given atom so that whenever the user drags it, the system detects
+ * whether or not is close to another specific atom. If it is close, the other atom is highlighted
+ * and, if the user stops dragging, a single bond is formed between both atoms and a win condition
+ * is met.
+ * @param {Object} paramsObj An object whose properties contain values to be used in this function.
+ * @param {string} paramsObj.atom1 Identifier of the atom that will be dragged.
+ * @param {string} paramsObj.atom2 Identifier of the atom that, if close to the first one, will be
+ * highlighted.
+ * @param {Konva.Layer} layer Layer in which the atoms are found.
+ * @param {Konva.Stage} stage Stage in which the layer lies.
+ */
 const searchForPairOnDragCallback = (paramsObj, layer, stage) => {
   let atom1 = layer.findOne(`#${paramsObj.atom1}`);
   let atom2 = layer.findOne(`#${paramsObj.atom2}`);
@@ -93,7 +181,7 @@ const searchForPairOnDragCallback = (paramsObj, layer, stage) => {
   });
 }
 
-
+/** @type {Object.<string, function>} A dictionary of possible callback functions to be used */
 let availableCallbacks = {
   addPropertiesToAtom: addPropertiesToAtomCallback,
   createDoubleBond: createDoubleBondCallback,
@@ -104,38 +192,15 @@ let availableCallbacks = {
 
 /**
  * Processes functions to be called when specific interactions are made with Konva.js elements.
+ * @param {Array.<function>} callbacks Array of functions to be called sequentially.
+ * @param {Konva.Layer} layer Layer in which the elements whose interactions triggered this function
+ * lie.
+ * @param {Konva.Stage} stage Stage in which the layer lies.
  */
 const processCallbacks = (callbacks, layer, stage) => {
   callbacks.map((func) => {
     availableCallbacks[func.funcName](func.params, layer, stage);
   });
-}
-
-/** 
-  * Sets the number of conditions to meet in order to win (successfully solve a reaction mechanism).
-  */
-const setWinConditions = (numConditions, message) => {
-  totalWinConditions = numConditions;
-  winMessage = message;
-}
-
-/**
- * Validates whether all of the winning conditions have been meet, in which case displays a success
- * alert message.
-*/
-const validateWin = () => {
-  if (currentWinConditions == totalWinConditions) {
-    swal('¡Buen trabajo!', winMessage, 'success');
-  }
-}
-
-const getCustomCallbacks = (bond, bondClass) => {
-  let customCallbacks = [];
-  if (bond.hasOwnProperty('customCallbacks') && bond.customCallbacks.hasOwnProperty(bondClass)) {
-    customCallbacks = bond.customCallbacks[bondClass];
-  }
-
-  return customCallbacks;
 }
 
 
