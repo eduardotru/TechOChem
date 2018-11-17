@@ -1,6 +1,11 @@
 import { createAtomsInLayer, createBondsInLayer } from './atoms.js';
 import { beginInteractionInLayer, setWinConditions } from './atomsInteraction.js';
-import { stageWidth, stageHeight, fitStageIntoParentContainer } from './responsiveCanvas.js';
+import { fitStageIntoParentContainer } from './responsiveCanvas.js';
+
+/** @type {number} Virtual width of the canvas */
+const stageWidth = 1000;
+/** @type {number} Virtual height of the canvas */
+const stageHeight = 600;
 
 let stage = new Konva.Stage({
   container: 'canvas',
@@ -21,7 +26,7 @@ $.ajax({
     setWinConditions(data.winConditions, "Has completado el segundo mecanismo de reacción!");
     
     stage.add(layer);
-    fitStageIntoParentContainer(stage);  
+    fitStageIntoParentContainer(stage, stageWidth, stageHeight, '#canvasContainer');  
   },
   error: (err) => {
     console.log(err);
