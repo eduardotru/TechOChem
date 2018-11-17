@@ -199,6 +199,14 @@
           {
             "funcName": "searchForPairOnDrag",
             "params": { "atom1": "bromium", "atom2": "carbon2" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "hydrogen11", "type": "positive" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "bromium", "type": "negative" }
           }
         ]
       }
@@ -225,6 +233,14 @@
           {
             "funcName": "addPropertiesToAtom",
             "params": { "atom": "oxygen", "properties": ["isEnabledToPair"] }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "carbon2", "type": "positive" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "oxygen", "type": "negative" }
           }
         ]
       }

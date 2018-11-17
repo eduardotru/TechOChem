@@ -149,8 +149,12 @@
             "params": { "element": "hydrogen4" }
           },
           {
-            "funcName":  "searchForPairOnDrag",
+            "funcName": "searchForPairOnDrag",
             "params": { "atom1": "hydrogen4", "atom2": "oxygen2" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "hydrogen4", "type": "positive" }
           }
         ]
       }
@@ -172,8 +176,12 @@
             "params": { "element": "hydrogen5" }
           },
           {
-            "funcName":  "searchForPairOnDrag",
+            "funcName": "searchForPairOnDrag",
             "params": { "atom1": "hydrogen5", "atom2": "oxygen2" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "hydrogen5", "type": "positive" }
           }
         ]
       }
