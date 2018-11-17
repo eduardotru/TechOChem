@@ -56,13 +56,13 @@ const singleBond = (atom1, atom2, classes = []) => {
   });
 }
 
-const doubleBond = (atomId1, atomId2, classes = []) => {
+const doubleBond = (atom1, atom2, classes = []) => {
   let g = new Konva.Group({
     draggable: false
   });
 
-  let line1 = singleBond(atomId1, atomId2);
-  let line2 = singleBond(atomId1, atomId2);
+  let line1 = singleBond(atom1, atom2);
+  let line2 = singleBond(atom1, atom2);
 
   line1.move({
     x: -8,
@@ -100,9 +100,6 @@ const createAtomsInLayer = (atomsInfo, layer) => {
     if (atom.hasOwnProperty('draggable'))
       draggable = atom.draggable;
     let atomNode = atomCreation[atom.type](atom.id, atom.x, atom.y, draggable);
-    if (atom.hasOwnProperty('futurePair')) {
-      atomNode.futurePair = atom.futurePair;
-    }
     layer.add(atomNode);
   });
 }
@@ -119,9 +116,11 @@ const createBondsInLayer = (bondsInfo, layer) => {
     bondNode.atom2 = atom2;
     if (bondInfo.hasOwnProperty('customCallbacks'))
       bondNode.customCallbacks = bondInfo.customCallbacks;
+    if (bondInfo.hasOwnProperty('id'))
+      bondNode.id(bondInfo.id);
     layer.add(bondNode);
     bondNode.moveToBottom();
   });
 }
 
-export { createAtomsInLayer, createBondsInLayer, singleBond };
+export { createAtomsInLayer, createBondsInLayer, singleBond, doubleBond };

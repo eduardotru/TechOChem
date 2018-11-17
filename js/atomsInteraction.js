@@ -1,62 +1,8 @@
-import { singleBond } from './atoms.js';
+import { singleBond, doubleBond } from './atoms.js';
 
 let currentWinConditions = 0;
 let totalWinConditions = 0;
 let winMessage = '';
-
-/**
- * Enables the draggable property of a Konva.js element and, in case it has the futurePair property,
- * checks whether the element is near to the one indicated by that property, creating a bond
- * between the two if it certainly is.
- * @param {Konva.Group} element Konva.js element who is going to be made draggable. 
- * @param {Konva.Layer} layer Layer in which the element is found.
- * @param {Konva.Stage} stage Stage in which the layer is found.
- */
-const makeDraggable = (element, layer, stage) => {
-  element.draggable(true);
-  
-  element.on('mouseover mouseup', (_) => {
-    document.body.style.cursor = 'grab';
-  });
-
-  element.on('mousedown', (_) => {
-    document.body.style.cursor = 'grabbing';
-  });
-
-  element.on('mouseout touchend', (e) => {
-    document.body.style.cursor = 'default';
-  });
-
-  if (element.hasOwnProperty('futurePair')) {
-    let element2 = layer.findOne(`#${element.futurePair}`);
-    let scale = stage.scale().x;
-    element2.cache();
-    element2.filters([Konva.Filters.Brighten]);
-    
-    element.on('dragmove', (e) => {
-      if (element2.isEnabledToPair && areNear(element, element2, scale)) {
-        element2.brightness(0.5);
-      } else {
-        element2.brightness(0);
-      }
-    });
-
-    element.on('dragend', (e) => {
-      if (element2.isEnabledToPair && areNear(element, element2, scale)) {
-        element2.brightness(0);
-        element.draggable(false);
-        let newBond = singleBond(e.target, element2);
-        newBond.scale({x: 1 / scale, y: 1 / scale});
-        newBond.strokeWidth(newBond.strokeWidth() * scale);
-        layer.add(newBond);
-        newBond.moveToBottom();
-        layer.draw();
-        currentWinConditions++;
-        validateWin();
-      }
-    });
-  }
-}
 
 /**
  * Checks whether two atoms are near each other.
@@ -72,45 +18,104 @@ const areNear = (atom1, atom2, scale) => {
   return dist < (atom1.children[0].radius() + 2 * atom2.children[0].radius()) * scale;
 }
 
-/**
- * Adds the 'isEnabledToPair' property to two previously bonded atoms, so that they can now be
- * tested with the areNear() method, to check whether specific atoms are near them.
- * @param {Konva.Group} atom1 First atom node of bond.
- * @param {Konva.Group} atom2 Second atom node of bond.
- */
-const enableBondAtoms = (atom1, atom2) => {
-  atom1.isEnabledToPair = true;
-  atom2.isEnabledToPair = true;
+const addPropertiesToAtomCallback = (paramsObj, layer, stage) => {
+  let atom = layer.findOne(`#${paramsObj.atom}`);
+  paramsObj.properties.map((property) => {
+    atom[property] = true;
+  });
+}
+
+const createDoubleBondCallback = (paramsObj, layer, stage) => {
+  let atom1 = layer.findOne(`#${paramsObj.atom1}`);
+  let atom2 = layer.findOne(`#${paramsObj.atom2}`);
+  let scale = stage.scale().x;
+  let newBond = doubleBond(atom1, atom2);
+  newBond.scale({x: 1 / scale, y: 1 / scale});
+  newBond.children.map((singleBond) => {
+    singleBond.strokeWidth(singleBond.strokeWidth() * scale);
+  });
+  layer.add(newBond);
+  newBond.moveToBottom();
+  layer.draw();
+}
+
+const destroyElementCallback = (paramsObj, layer, stage) => {
+  let element = layer.find(`#${paramsObj.element}`);
+  element.destroy();
+  layer.draw();
+}
+
+const makeDraggableCallback = (paramsObj, layer, stage) => {
+  let element = layer.find(`#${paramsObj.element}`);
+  element.draggable(true);
+  
+  element.on('mouseover mouseup', (_) => {
+    document.body.style.cursor = 'grab';
+  });
+
+  element.on('mousedown', (_) => {
+    document.body.style.cursor = 'grabbing';
+  });
+
+  element.on('mouseout touchend', (e) => {
+    document.body.style.cursor = 'default';
+  });
+}
+
+const searchForPairOnDragCallback = (paramsObj, layer, stage) => {
+  let atom1 = layer.findOne(`#${paramsObj.atom1}`);
+  let atom2 = layer.findOne(`#${paramsObj.atom2}`);
+  let scale = stage.scale().x;
+  atom2.cache();
+  atom2.filters([Konva.Filters.Brighten]);
+    
+  atom1.on('dragmove', (e) => {
+    if (atom2.isEnabledToPair && areNear(atom1, atom2, scale)) {
+      atom2.brightness(0.5);
+    } else {
+      atom2.brightness(0);
+    }
+  });
+
+  atom1.on('dragend', (e) => {
+    if (atom2.isEnabledToPair && areNear(atom1, atom2, scale)) {
+      atom2.brightness(0);
+      atom2.draggable(false);
+      let newBond = singleBond(atom1, atom2);
+      newBond.scale({x: 1 / scale, y: 1 / scale});
+      newBond.strokeWidth(newBond.strokeWidth() * scale);
+      layer.add(newBond);
+      newBond.moveToBottom();
+      layer.draw();
+      currentWinConditions++;
+      validateWin();
+    }
+  });
+}
+
+
+let availableCallbacks = {
+  addPropertiesToAtom: addPropertiesToAtomCallback,
+  createDoubleBond: createDoubleBondCallback,
+  destroyElement: destroyElementCallback,
+  makeDraggable: makeDraggableCallback,
+  searchForPairOnDrag: searchForPairOnDragCallback
 }
 
 /**
  * Processes functions to be called when specific interactions are made with Konva.js elements.
- * @param {string} funcName Name of the function to be called. 
- * @param {Konva.Layer} layer Layer in which the Konva.js elements are found. 
- * @param {Konva.Group} atom1 First atom node of an interaction. 
- * @param {Konva.Group} atom2 Second atom node an interaction.
  */
-const processCallbacks = (funcName, layer, atom1, atom2) => {
-  switch (funcName) {
-    case 'enableBondAtoms':
-      enableBondAtoms(atom1, atom2);
-      break;
-  }
+const processCallbacks = (callbacks, layer, stage) => {
+  callbacks.map((func) => {
+    availableCallbacks[func.funcName](func.params, layer, stage);
+  });
 }
 
 /** 
   * Sets the number of conditions to meet in order to win (successfully solve a reaction mechanism).
-  * @param {Object[]} atomsInfo - An array of objects containing information about each atom in the
-  * current reaction mechanism.
-  * @param {string} [atomsInfo[].futurePair] - Optional attribute of an object within the atomsInfo
-  * array. This attribute represents a winning condition if present.
-  * @param {string} message A message to be displayed when all the winning conditions are met.
   */
-const setWinConditions = (atomsInfo, message) => {
-  atomsInfo.map((atomInfo) => {
-    if (atomInfo.hasOwnProperty('futurePair'))
-      totalWinConditions++;
-  });
+const setWinConditions = (numConditions, message) => {
+  totalWinConditions = numConditions;
   winMessage = message;
 }
 
@@ -124,6 +129,16 @@ const validateWin = () => {
   }
 }
 
+const getCustomCallbacks = (bond, bondClass) => {
+  let customCallbacks = [];
+  if (bond.hasOwnProperty('customCallbacks') && bond.customCallbacks.hasOwnProperty(bondClass)) {
+    customCallbacks = bond.customCallbacks[bondClass];
+  }
+
+  return customCallbacks;
+}
+
+
 /**
  * Applies all interactive features given by Konva names (similar to CSS classes) to the elements
  * found in a specific layer within a stage.
@@ -132,7 +147,10 @@ const validateWin = () => {
  * needed.
  */
 const beginInteractionInLayer = (layer, stage) => {
-  layer.find('.clickableBond').map((bond) => {
+  let bondClass;
+  
+  bondClass = 'clickableBond';
+  layer.find(`.${bondClass}`).map((bond) => {
     bond.on('mouseover', (e) => {
       e.target.stroke('red');
       document.body.style.cursor = 'pointer';
@@ -146,24 +164,11 @@ const beginInteractionInLayer = (layer, stage) => {
     });
   });
 
-  layer.find('.destroyableBond').map((bond) => {
-    let callback = '';
-    if (bond.hasOwnProperty('customCallbacks')) {
-      if (bond.customCallbacks.hasOwnProperty('destroyableBond')) {
-        callback = bond.customCallbacks['destroyableBond'];
-      }
-    }
+  bondClass = 'destroyableBond';
+  layer.find(`.${bondClass}`).map((bond) => {
+    let callbacks = getCustomCallbacks(bond, bondClass);
     bond.on('click', (e) => {
-      processCallbacks(callback, layer, bond.atom1, bond.atom2);
-      e.target.destroy();
-      layer.draw();
-    });
-  });
-
-  layer.find('.destroyableBond2').map((bond) => {
-    bond.on('click', (e) => {
-      makeDraggable(bond.atom1, layer, stage);
-      makeDraggable(bond.atom2, layer, stage);
+      processCallbacks(callbacks, layer, stage);
       e.target.destroy();
       layer.draw();
     });
