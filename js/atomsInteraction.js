@@ -191,6 +191,8 @@ const searchForPairOnDragCallback = (paramsObj, layer, stage) => {
       atom1.draggable(false);
 
       let newBond = singleBond(atom1, atom2);
+      if(paramsObj.hasOwnProperty('bondId'))
+        newBond.id(paramsObj.bondId);
       newBond.scale({x: 1 / scale, y: 1 / scale});
       newBond.strokeWidth(newBond.strokeWidth() * scale);
       layer.add(newBond);
@@ -210,6 +212,108 @@ const searchForPairOnDragCallback = (paramsObj, layer, stage) => {
       if (atom2Ion != null) {
         atom2Ion.destroy();
         atom2.clearCache();
+      }
+
+      if(paramsObj.hasOwnProperty('callbacks')) {
+        processCallbacks(paramsObj.callbacks, layer, stage);
+      }
+
+      layer.draw();
+      currentWinConditions++;
+      validateWin();
+    }
+  });
+}
+
+/**
+ * Adds an event listener to a given atom so that whenever the user drags it, the system detects
+ * whether or not is close to other two specified atoms. The two atoms to pair it with should be
+ * at a decent distance between them. If it is close, the other two atoms are highlighted
+ * and, if the user stops dragging, a single bond is formed between both atoms and a win condition
+ * is met.
+ * @param {Object} paramsObj An object whose properties contain values to be used in this function.
+ * @param {string} paramsObj.atom1 Identifier of the atom that will be dragged.
+ * @param {string} paramsObj.atom2 Identifier of the atom that, if close to the first one, will be
+ * highlighted.
+ * @param {Konva.Layer} layer Layer in which the atoms are found.
+ * @param {Konva.Stage} stage Stage in which the layer lies.
+ */
+const searchForTwoPairsOnDragCallback = (paramsObj, layer, stage) => {
+  let atom1 = layer.findOne(`#${paramsObj.atom1}`);
+  let atom2 = layer.findOne(`#${paramsObj.atom2}`);
+  let atom3 = layer.findOne(`#${paramsObj.atom3}`);
+  let scale = stage.scale().x;
+  atom2.cache();
+  atom2.filters([Konva.Filters.Brighten]);
+
+  atom3.cache();
+  atom3.filters([Konva.Filters.Brighten]);
+
+  atom1.on('dragmove', (e) => {
+    if (atom2.isEnabledToPair && areNear(atom1, atom2, scale)) {
+      atom2.brightness(0.5);
+    } else {
+      atom2.brightness(0);
+    }
+
+    if (atom3.isEnabledToPair && areNear(atom1, atom3, scale)) {
+      atom3.brightness(0.5);
+    } else {
+      atom3.brightness(0);
+    }
+  });
+
+  atom1.on('dragend', (e) => {
+    if (atom2.isEnabledToPair && areNear(atom1, atom2, scale) &&
+        atom3.isEnabledToPair && areNear(atom1, atom3, scale)
+        ) {
+      atom2.brightness(0);
+      atom3.brightness(0);
+
+      atom1.draggable(false);
+
+      let newBond = singleBond(atom1, atom2);
+      if(paramsObj.hasOwnProperty('bond1Id'))
+        newBond.id(paramsObj.bond1Id);
+      newBond.scale({x: 1 / scale, y: 1 / scale});
+      newBond.strokeWidth(newBond.strokeWidth() * scale);
+      layer.add(newBond);
+      newBond.moveToBottom();
+
+      newBond = singleBond(atom1, atom3);
+      if(paramsObj.hasOwnProperty('bond2Id'))
+        newBond.id(paramsObj.bond2Id);
+      newBond.scale({x: 1 / scale, y: 1 / scale});
+      newBond.strokeWidth(newBond.strokeWidth() * scale);
+      layer.add(newBond);
+      newBond.moveToBottom();
+
+      // Checks if the first atom was an ion, in which case deletes the ion charge, since the atom
+      // has been neutralized with the new bond.
+      let atom1Ion = atom1.findOne(`#${atom1.id()}-ion`);
+      if (atom1Ion != null) {
+        atom1Ion.destroy();
+        atom1.clearCache();
+      }
+
+      // Checks if the second atom was an ion, in which case deletes the ion charge, since the atom
+      // has been neutralized with the new bond.
+      let atom2Ion = atom2.findOne(`#${atom2.id()}-ion`);
+      if (atom2Ion != null) {
+        atom2Ion.destroy();
+        atom2.clearCache();
+      }
+
+      // Checks if the third atom was an ion, in which case deletes the ion charge, since the atom
+      // has been neutralized with the new bond.
+      let atom3Ion = atom3.findOne(`#${atom3.id()}-ion`);
+      if (atom3Ion != null) {
+        atom3Ion.destroy();
+        atom3.clearCache();
+      }
+
+      if(paramsObj.hasOwnProperty('callbacks')) {
+        processCallbacks(paramsObj.callbacks, layer, stage);
       }
 
       layer.draw();
@@ -280,6 +384,7 @@ let availableCallbacks = {
   destroyElement: destroyElementCallback,
   makeDraggable: makeDraggableCallback,
   searchForPairOnDrag: searchForPairOnDragCallback,
+  searchForTwoPairsOnDrag: searchForTwoPairsOnDragCallback,
   setAtomAsIon: setAtomAsIonCallback
 }
 
