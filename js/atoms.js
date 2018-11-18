@@ -105,23 +105,27 @@ const createAtomsInLayer = (atomsInfo, layer) => {
   });
 }
 
+const createBondInLayer = (bondInfo, layer) => {
+  let atom1 = layer.findOne(`#${bondInfo.atom1}`);
+  let atom2 = layer.findOne(`#${bondInfo.atom2}`);
+  let classes = [];
+  if (bondInfo.hasOwnProperty('classes'))
+    classes = bondInfo.classes;
+  let bondNode = bondCreation[bondInfo.type](atom1, atom2, classes);
+  bondNode.atom1 = atom1;
+  bondNode.atom2 = atom2;
+  if (bondInfo.hasOwnProperty('customCallbacks'))
+    bondNode.customCallbacks = bondInfo.customCallbacks;
+  if (bondInfo.hasOwnProperty('id'))
+    bondNode.id(bondInfo.id);
+  layer.add(bondNode);
+  bondNode.moveToBottom();
+}
+
 const createBondsInLayer = (bondsInfo, layer) => {
   bondsInfo.map((bondInfo) => {
-    let atom1 = layer.findOne(`#${bondInfo.atom1}`);
-    let atom2 = layer.findOne(`#${bondInfo.atom2}`);
-    let classes = [];
-    if (bondInfo.hasOwnProperty('classes'))
-      classes = bondInfo.classes;
-    let bondNode = bondCreation[bondInfo.type](atom1, atom2, classes);
-    bondNode.atom1 = atom1;
-    bondNode.atom2 = atom2;
-    if (bondInfo.hasOwnProperty('customCallbacks'))
-      bondNode.customCallbacks = bondInfo.customCallbacks;
-    if (bondInfo.hasOwnProperty('id'))
-      bondNode.id(bondInfo.id);
-    layer.add(bondNode);
-    bondNode.moveToBottom();
+    createBondInLayer(bondInfo, layer);
   });
 }
 
-export { createAtomsInLayer, createBondsInLayer, singleBond, doubleBond };
+export { createAtomsInLayer, createBondsInLayer, createBondInLayer, singleBond, doubleBond };
