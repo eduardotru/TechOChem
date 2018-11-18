@@ -31,55 +31,12 @@
   </nav>
   <div id="topSection" class="container">
     <div class="section">
-      <h1 class="header center-align indigo-text">Oxidación</h1>
+      <h1 class="header center-align indigo-text">Mecanismo 2</h1>
       <div class="row center-align marginBot2">
-        <h5 class="header col s12 light flow">
-          El carbono alfa de la molécula (el que está conectado con el grupo funcional), al estar en la presencia de
-los oxígenos se oxida; para esto, debe perder el enlace que tiene con el hidrógeno y generar un doble
-enlace con el oxígeno; para estabilizarse, el oxígeno debe, de la misma manera, perder el enlace con su
-propio hidrógeno. Esto acaba creando una molecula con el grupo funcional de cetona y el resto de los
-hidrógenos forman agua con el oxígeno.
+        <h5 class="header col s12 light">
+          Descripción del mecanismo de reacción 2.
         </h5>
-        <h4 class="col s12 light">
-          <math xmlns="http://www.w3.org/1998/Math/MathML">
-            <msub>
-              <mi>CH</mi>
-              <mn>3</mn>
-            </msub>
-            <msub>
-              <mi>CH</mi>
-            </msub>
-            <mfenced>
-              <mi>OH</mi>
-            </mfenced>
-            <msub>
-              <mi>CH</mi>
-              <mn>3</mn>
-            </msub>
-            <mover>
-              <mo>&#8594;</mo>
-              <mi>[O]</mi>
-            </mover>
-            <msub>
-              <mi>CH</mi>
-              <mn>3</mn>
-            </msub>
-            <mi>C</mi>
-            <mfenced>
-              <mi>O</mi>
-            </mfenced>
-            <msub>
-              <mi>CH</mi>
-              <mn>3</mn>
-            </msub>
-            <mo>+</mo>
-            <msub>
-              <mi>H</mi>
-              <mn>2</mn>
-            </msub>
-            <mi>O</mi>
-          </math>
-        </h4>
+        <h4 class="col s12 light"><i>C2H4 + HBr -> C2H5Br</i></h4>
       </div>
       <div class="row marginBot2">
         <div class="col s12 marginBot1 center-align">
@@ -91,7 +48,7 @@ hidrógenos forman agua con el oxígeno.
 
   <div class="container">
     <div class="row">
-      <div id="canvasContainer" class="col s12 m12 center-align grey lighten-3">
+      <div id="canvasContainer" class="col s12 center-align grey lighten-3">
         <div id="canvas" style="border: 1px; border-color: black; border-style: solid;"></div>
       </div>
     </div>
@@ -104,18 +61,13 @@ hidrógenos forman agua con el oxígeno.
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://unpkg.com/konva@2.4.2/konva.min.js"></script>
-  <script type="text/javascript" async
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-  </script>
   <script src="./js/sweetalert2.all.min.js"></script>
-  <script type="module" src="./js/oxidacion.js"></script>
+  <script type="module" src="./js/mecanismo2.js"></script>
   <script>
     $(document).ready(function(){
       $(".dropdown-trigger").dropdown();
       $("#ayuda").click(function(){
-        swal('Oxidación', `Usa la nomenclatura para plasmar correctamente la molecula.
-¿Qué es lo que sucede en una reacción de oxidación? ¿Se pierde o se gana electrones?
-¿Quién es el que es afectado en este tipo de reacción?`, 'question');
+        swal('Mecanismo 2', 'Ayuda del mecanismo 2', 'question');
       });
     });
   </script>

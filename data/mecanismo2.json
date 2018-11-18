@@ -1,0 +1,265 @@
+{ "atoms": 
+  [
+    {
+      "id": "carbon1",
+      "type": "carbon",
+      "x": 125,
+      "y": 300
+    },
+    {
+      "id": "carbon2",
+      "type": "carbon",
+      "x": 250,
+      "y": 200
+    },
+    {
+      "id": "oxygen",
+      "type": "oxygen",
+      "x": 375,
+      "y": 400
+    },
+    {
+      "id": "carbon3",
+      "type": "carbon",
+      "x": 500,
+      "y": 200
+    },
+    {
+      "id": "carbon4",
+      "type": "carbon",
+      "x": 625,
+      "y": 300
+    },
+    {
+      "id": "bromium",
+      "type": "bromium",
+      "x": 875,
+      "y": 100
+    },
+    {
+      "id": "hydrogen1",
+      "type": "hydrogen",
+      "x": 43,
+      "y": 300
+    },
+    {
+      "id": "hydrogen2",
+      "type": "hydrogen",
+      "x": 125,
+      "y": 200
+    },
+    {
+      "id": "hydrogen3",
+      "type": "hydrogen",
+      "x": 125,
+      "y": 400
+    },
+    {
+      "id": "hydrogen4",
+      "type": "hydrogen",
+      "x": 250,
+      "y": 100
+    },
+    {
+      "id": "hydrogen5",
+      "type": "hydrogen",
+      "x": 250,
+      "y": 300
+    },
+    {
+      "id": "hydrogen6",
+      "type": "hydrogen",
+      "x": 500,
+      "y": 100
+    },
+    {
+      "id": "hydrogen7",
+      "type": "hydrogen",
+      "x": 500,
+      "y": 300
+    },
+    {
+      "id": "hydrogen8",
+      "type": "hydrogen",
+      "x": 625,
+      "y": 200
+    },
+    {
+      "id": "hydrogen9",
+      "type": "hydrogen",
+      "x": 625,
+      "y": 400
+    },
+    {
+      "id": "hydrogen10",
+      "type": "hydrogen",
+      "x": 750,
+      "y": 300
+    },
+    {
+      "id": "hydrogen11",
+      "type": "hydrogen",
+      "x": 750,
+      "y": 100
+    }
+  ],
+
+  "bonds":
+  [
+    {
+      "id": "bond1",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen1",
+      "atom2": "carbon1"
+    },
+    {
+      "id": "bond2",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen2",
+      "atom2": "carbon1"
+    },
+    {
+      "id": "bond3",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen3",
+      "atom2": "carbon1"
+    },
+    {
+      "id": "bond4",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen4",
+      "atom2": "carbon2"
+    },
+    {
+      "id": "bond5",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen5",
+      "atom2": "carbon2"
+    },
+    {
+      "id": "bond6",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen6",
+      "atom2": "carbon3"
+    },
+    {
+      "id": "bond7",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen7",
+      "atom2": "carbon3"
+    },
+    {
+      "id": "bond8",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen8",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond9",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen9",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond10",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen10",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond11",
+      "type": "single",
+      "classes": ["clickableBond", "destroyableBond"],
+      "atom1": "hydrogen11",
+      "atom2": "bromium",
+      "customCallbacks": {
+        "destroyableBond": [
+          {
+            "funcName": "makeDraggable",
+            "params": { "element": "hydrogen11" }
+          },
+          {
+            "funcName": "makeDraggable",
+            "params": { "element": "bromium" }
+          },
+          {
+            "funcName": "searchForPairOnDrag",
+            "params": { "atom1": "hydrogen11", "atom2": "oxygen" }
+          },
+          {
+            "funcName": "searchForPairOnDrag",
+            "params": { "atom1": "bromium", "atom2": "carbon2" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "hydrogen11", "type": "positive" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "bromium", "type": "negative" }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bond12",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon1",
+      "atom2": "carbon2"
+    },
+    {
+      "id": "bond13",
+      "type": "single",
+      "classes": ["clickableBond", "destroyableBond"],
+      "atom1": "carbon2",
+      "atom2": "oxygen",
+      "customCallbacks": {
+        "destroyableBond": [
+          {
+            "funcName": "addPropertiesToAtom",
+            "params": { "atom": "carbon2", "properties": ["isEnabledToPair"] }
+          },
+          {
+            "funcName": "addPropertiesToAtom",
+            "params": { "atom": "oxygen", "properties": ["isEnabledToPair"] }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "carbon2", "type": "positive" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "oxygen", "type": "negative" }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bond14",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "oxygen",
+      "atom2": "carbon3"
+    },
+    {
+      "id": "bond15",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon3",
+      "atom2": "carbon4"
+    }
+  ],
+
+  "winConditions": 2
+}
