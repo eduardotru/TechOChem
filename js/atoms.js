@@ -58,7 +58,8 @@ const singleBond = (atom1, atom2, classes = []) => {
 
 const doubleBond = (atom1, atom2, classes = []) => {
   let g = new Konva.Group({
-    draggable: false
+    draggable: false,
+    name: classes.join(' ')
   });
 
   let line1 = singleBond(atom1, atom2);
