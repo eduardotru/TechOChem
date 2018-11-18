@@ -18,7 +18,7 @@ $.ajax({
     createAtomsInLayer(data.atoms, layer);
     createBondsInLayer(data.bonds, layer);
     beginInteractionInLayer(layer, stage);
-    setWinConditions(data.atoms, "Has completado el segundo mecanismo de reacción!");
+    setWinConditions(data.winConditions, "Has completado el segundo mecanismo de reacción!");
     
     stage.add(layer);
     fitStageIntoParentContainer(stage);  

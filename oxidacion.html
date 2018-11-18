@@ -15,8 +15,8 @@
 
 <body class="blue-grey lighten-5">
   <ul id="dropdown1" class="dropdown-content">
-    <li><a href="#">Oxidación</a></li>
-    <li><a href="#">Mecanismo 2</a></li>
+    <li><a href="./oxidacion.html">Oxidación</a></li>
+    <li><a href="./mecanismo2.html">Mecanismo 2</a></li>
     <li><a href="#">Mecanismo 3</a></li>
     <li><a href="#">Mecanismo 4</a></li>
     <li><a href="#">Mecanismo 5</a></li>
@@ -91,7 +91,7 @@ hidrógenos forman agua con el oxígeno.
 
   <div class="container">
     <div class="row">
-      <div class="col s12 m12 center-align grey lighten-3">
+      <div id="canvasContainer" class="col s12 m12 center-align grey lighten-3">
         <div id="canvas" style="border: 1px; border-color: black; border-style: solid;"></div>
       </div>
     </div>
@@ -108,8 +108,7 @@ hidrógenos forman agua con el oxígeno.
     src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
   </script>
   <script src="./js/sweetalert2.all.min.js"></script>
-  <script src="./js/atoms.js"></script>
-  <script src="./js/oxidacion.js"></script>
+  <script type="module" src="./js/oxidacion.js"></script>
   <script>
     $(document).ready(function(){
       $(".dropdown-trigger").dropdown();
