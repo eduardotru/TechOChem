@@ -23,7 +23,7 @@ $.ajax({
     createAtomsInLayer(data.atoms, layer);
     createBondsInLayer(data.bonds, layer);
     beginInteractionInLayer(layer, stage);
-    setWinConditions(data.winConditions, "Has completado el mecanismo de reacción de adición!");
+    setWinConditions(data.winConditions, "Has completado el mecanismo de reacción de adición! Este mecanismo de reacción es importante para la generación de disolventes industriales.");
 
     stage.add(layer);
     fitStageIntoParentContainer(stage, stageWidth, stageHeight, '#canvasContainer');
