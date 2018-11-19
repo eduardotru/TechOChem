@@ -1,0 +1,227 @@
+{ "atoms":
+  [
+    {
+      "id": "chlorine1",
+      "type": "chlorine",
+      "x": 60,
+      "y": 300
+    },
+    {
+      "id": "chlorine2",
+      "type": "chlorine",
+      "x": 160,
+      "y": 300
+    },
+    {
+      "id": "aluminium",
+      "type": "aluminium",
+      "x": 360,
+      "y": 300
+    },
+    {
+      "id": "chlorine3",
+      "type": "chlorine",
+      "x": 360,
+      "y": 180
+    },
+    {
+      "id": "chlorine4",
+      "type": "chlorine",
+      "x": 260,
+      "y": 400
+    },
+    {
+      "id": "chlorine5",
+      "type": "chlorine",
+      "x": 460,
+      "y": 400
+    },
+    {
+      "id": "carbon1",
+      "type": "carbon",
+      "x": 682,
+      "y": 255
+    },
+    {
+      "id": "carbon2",
+      "type": "carbon",
+      "x": 682,
+      "y": 340
+    },
+    {
+      "id": "carbon3",
+      "type": "carbon",
+      "x": 773,
+      "y": 170
+    },
+    {
+      "id": "carbon4",
+      "type": "carbon",
+      "x": 773,
+      "y": 425
+    },
+    {
+      "id": "carbon5",
+      "type": "carbon",
+      "x": 864,
+      "y": 255
+    },
+    {
+      "id": "carbon6",
+      "type": "carbon",
+      "x": 864,
+      "y": 340
+    },
+    {
+      "id": "hydrogen1",
+      "type": "hydrogen",
+      "x": 591,
+      "y": 200
+    },
+    {
+      "id": "hydrogen2",
+      "type": "hydrogen",
+      "x": 591,
+      "y": 400
+    },
+    {
+      "id": "hydrogen3",
+      "type": "hydrogen",
+      "x": 773,
+      "y": 85
+    },
+    {
+      "id": "hydrogen4",
+      "type": "hydrogen",
+      "x": 773,
+      "y": 510
+    },
+    {
+      "id": "hydrogen5",
+      "type": "hydrogen",
+      "x": 955,
+      "y": 200
+    },
+    {
+      "id": "hydrogen6",
+      "type": "hydrogen",
+      "x": 955,
+      "y": 400
+    }
+  ],
+  "bonds":
+  [
+    {
+      "id": "bond1",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "chlorine1",
+      "atom2": "chlorine2"
+    },
+    {
+      "id": "bond2",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "chlorine3",
+      "atom2": "aluminium"
+    },
+    {
+      "id": "bond4",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "chlorine4",
+      "atom2": "aluminium"
+    },
+    {
+      "id": "bond5",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "chlorine5",
+      "atom2": "aluminium"
+    },
+    {
+      "id": "bond6",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen1",
+      "atom2": "carbon1"
+    },
+    {
+      "id": "bond7",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen2",
+      "atom2": "carbon2"
+    },
+    {
+      "id": "bond8",
+      "type": "double",
+      "classes": ["clickableBond"],
+      "atom1": "carbon1",
+      "atom2": "carbon2"
+    },
+    {
+      "id": "bond9",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon1",
+      "atom2": "carbon3"
+    },
+    {
+      "id": "bond10",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon2",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond11",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen3",
+      "atom2": "carbon3"
+    },
+    {
+      "id": "bond12",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen4",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond13",
+      "type": "double",
+      "classes": ["clickableBond"],
+      "atom1": "carbon3",
+      "atom2": "carbon5"
+    },
+    {
+      "id": "bond14",
+      "type": "double",
+      "classes": ["clickableBond"],
+      "atom1": "carbon4",
+      "atom2": "carbon6"
+    },
+    {
+      "id": "bond15",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon5",
+      "atom2": "carbon6"
+    },
+    {
+      "id": "bond16",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon5",
+      "atom2": "hydrogen5"
+    },
+    {
+      "id": "bond17",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon6",
+      "atom2": "hydrogen6"
+    }
+  ]
+}

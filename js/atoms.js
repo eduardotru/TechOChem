@@ -29,19 +29,27 @@ const atom = (id, x, y, draggable, color, stroke, radius, name, textColor) => {
 
 // Atom that can be created.
 const carbon = (id, x, y, draggable) => {
-  return atom(id, x, y, draggable, '#333', '#000', 5*4 + 20, 'C', '#fff');
+  return atom(id, x, y, draggable, '#333', '#000', 32, 'C', '#fff');
 };
 
 const oxygen = (id, x, y, draggable) => {
-  return atom(id, x, y, draggable, '#f00', '#a00', 7*4 + 20, 'O', '#000');
+  return atom(id, x, y, draggable, '#f00', '#a00', 28, 'O', '#000');
 };
 
 const hydrogen = (id, x, y, draggable) => {
-  return atom(id, x, y, draggable, '#999', '#777', 1*4 + 20, 'H', '#000');
+  return atom(id, x, y, draggable, '#999', '#777', 24, 'H', '#000');
 };
 
 const bromium = (id, x, y, draggable) => {
-  return atom(id, x, y, draggable, '#A52A2A', '#831414', 7*4 + 20, 'Br', '#fff');
+  return atom(id, x, y, draggable, '#A52A2A', '#831414', 36, 'Br', '#fff');
+}
+
+const chlorine = (id, x, y, draggable) => {
+  return atom(id, x, y, draggable, '#00FF00', '#09C409', 40, 'Cl', '#000');
+}
+
+const aluminium = (id, x, y, draggable) => {
+  return atom(id, x, y, draggable, '#bfa6a6', '#a78585', 44, 'Al', '#000')
 }
 
 // Bonds between atoms
@@ -97,7 +105,9 @@ const atomCreation = {
   carbon: carbon,
   oxygen: oxygen,
   hydrogen: hydrogen,
-  bromium: bromium
+  bromium: bromium,
+  chlorine: chlorine,
+  aluminium: aluminium
 };
 
 const bondCreation = {
