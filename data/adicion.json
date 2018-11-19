@@ -1,0 +1,236 @@
+{"atoms": [
+    {
+      "id": "carbon1",
+      "type": "carbon",
+      "x": 150,
+      "y": 200
+    },
+    {
+      "id": "carbon2",
+      "type": "carbon",
+      "x": 250,
+      "y": 300
+    },
+    {
+      "id": "carbon3",
+      "type": "carbon",
+      "x": 450,
+      "y": 300
+    },
+    {
+      "id": "carbon4",
+      "type": "carbon",
+      "x": 550,
+      "y": 400
+    },
+    {
+      "id": "hydrogen1",
+      "type": "hydrogen",
+      "x": 70,
+      "y": 130
+    },
+    {
+      "id": "hydrogen2",
+      "type": "hydrogen",
+      "x": 180,
+      "y": 95
+    },
+    {
+      "id": "hydrogen3",
+      "type": "hydrogen",
+      "x": 50,
+      "y": 230
+    },
+    {
+      "id": "hydrogen4",
+      "type": "hydrogen",
+      "x": 150,
+      "y": 400
+    },
+    {
+      "id": "hydrogen5",
+      "type": "hydrogen",
+      "x": 550,
+      "y": 200
+    },
+    {
+      "id": "hydrogen6",
+      "type": "hydrogen",
+      "x": 630,
+      "y": 470
+    },
+    {
+      "id": "hydrogen7",
+      "type": "hydrogen",
+      "x": 520,
+      "y": 505
+    },
+    {
+      "id": "hydrogen8",
+      "type": "hydrogen",
+      "x": 650,
+      "y": 370
+    },
+    {
+      "id": "bromium1",
+      "type": "bromium",
+      "x": 750,
+      "y": 200
+    },
+    {
+      "id": "bromium2",
+      "type": "bromium",
+      "x": 900,
+      "y": 200
+    }
+  ],
+  "bonds" :[
+    {
+      "id": "bond1",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen1",
+      "atom2": "carbon1"
+    },
+    {
+      "id": "bond2",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen2",
+      "atom2": "carbon1"
+    },
+    {
+      "id": "bond3",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen3",
+      "atom2": "carbon1"
+    },
+    {
+      "id": "bond4",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon1",
+      "atom2": "carbon2"
+    },
+    {
+      "id": "bond5",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen4",
+      "atom2": "carbon2"
+    },
+    {
+      "id": "bond6",
+      "type": "double",
+      "classes": ["clickableBond", "destroyableBond"],
+      "atom1": "carbon2",
+      "atom2": "carbon3",
+      "customCallbacks": {
+        "destroyableBond": [
+          {
+            "funcName": "addPropertiesToAtom",
+            "params": { "atom": "carbon2", "properties": ["isEnabledToPair"] }
+          },
+          {
+            "funcName": "addPropertiesToAtom",
+            "params": { "atom": "carbon3", "properties": ["isEnabledToPair"] }
+          },
+          {
+            "funcName": "destroyElement",
+            "params": { "element": "bond6" }
+          },
+          {
+            "funcName": "createSingleBond",
+            "params": { "atom1": "carbon2", "atom2": "carbon3" }
+          }
+        ]
+      }
+    },
+    {
+      "id": "bond7",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen5",
+      "atom2": "carbon3"
+    },
+    {
+      "id": "bond8",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen6",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond9",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen7",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond10",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen8",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond11",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon3",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond12",
+      "type": "single",
+      "classes": ["clickableBond", "destroyableBond"],
+      "atom1": "bromium1",
+      "atom2": "bromium2",
+      "customCallbacks": {
+        "destroyableBond": [
+          {
+            "funcName": "makeDraggable",
+            "params": { "element": "bromium1" }
+          },
+          {
+            "funcName": "makeDraggable",
+            "params": { "element": "bromium2" }
+          },
+          {
+            "funcName": "searchForTwoPairsOnDrag",
+            "params": { "atom1": "bromium1", "atom2": "carbon2", "atom3": "carbon3", "bond1Id": "bond13", "bond2Id": "bond14",
+              "callbacks": [
+                {
+                  "funcName": "addPropertiesToAtom",
+                  "params": { "atom": "carbon3", "properties": ["isEnabledToPair"] }
+                },
+                {
+                  "funcName": "searchForPairOnDrag",
+                  "params": { "atom1": "bromium2", "atom2": "carbon3",
+                    "callbacks": [
+                      {
+                        "funcName": "destroyElement",
+                        "params": { "element": "bond14" }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "bromium1", "type": "positive" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "bromium2", "type": "negative" }
+          }
+        ]
+      }
+    }
+  ],
+  "winConditions": 2
+}
