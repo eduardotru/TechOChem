@@ -199,12 +199,26 @@
             "params": { "element": "bromium2" }
           },
           {
-            "funcName": "searchForPairOnDrag",
-            "params": { "atom1": "bromium1", "atom2": "carbon2" }
-          },
-          {
-            "funcName": "searchForPairOnDrag",
-            "params": { "atom1": "bromium1", "atom2": "carbon3" }
+            "funcName": "searchForTwoPairsOnDrag",
+            "params": { "atom1": "bromium1", "atom2": "carbon2", "atom3": "carbon3", "bond1Id": "bond13", "bond2Id": "bond14",
+              "callbacks": [
+                {
+                  "funcName": "addPropertiesToAtom",
+                  "params": { "atom": "carbon3", "properties": ["isEnabledToPair"] }
+                },
+                {
+                  "funcName": "searchForPairOnDrag",
+                  "params": { "atom1": "bromium2", "atom2": "carbon3",
+                    "callbacks": [
+                      {
+                        "funcName": "destroyElement",
+                        "params": { "element": "bond14" }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
           },
           {
             "funcName": "setAtomAsIon",
@@ -218,5 +232,5 @@
       }
     }
   ],
-  "winConditions": 3
+  "winConditions": 2
 }
