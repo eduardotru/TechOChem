@@ -74,6 +74,18 @@ const doubleBond = (atom1, atom2, classes = []) => {
     x: 8,
     y: 8
   });
+  if(atom2.children[0].getAbsolutePosition().x - atom1.children[0].getAbsolutePosition().x == atom2.children[0].getAbsolutePosition().y - atom1.children[0].getAbsolutePosition().y && atom2.children[0].getAbsolutePosition().y - atom1.children[0].getAbsolutePosition().y > 0)
+  {
+    line1.move({
+      x: 8,
+      y: -8,
+    });
+
+    line2.move({
+      x: -8,
+      y: 8
+    });
+  }
 
   g.add(line1);
   g.add(line2);

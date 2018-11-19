@@ -1,0 +1,180 @@
+{ "atoms": 
+  [
+    {
+      "id": "carbon1",
+      "type": "carbon",
+      "x": 300,
+      "y": 100
+    },
+    {
+      "id": "carbon2",
+      "type": "carbon",
+      "x": 200,
+      "y": 200
+    },
+    {
+      "id": "carbon3",
+      "type": "carbon",
+      "x": 200,
+      "y": 350
+    },
+    {
+      "id": "carbon4",
+      "type": "carbon",
+      "x": 300,
+      "y": 450
+    },
+    {
+      "id": "carbon5",
+      "type": "carbon",
+      "x": 700,
+      "y": 200
+    },
+    {
+      "id": "carbon6",
+      "type": "carbon",
+      "x": 700,
+      "y": 350
+    },
+    {
+      "id": "hydrogen1",
+      "type": "hydrogen",
+      "x": 250,
+      "y": 50
+    },
+    {
+      "id": "hydrogen2",
+      "type": "hydrogen",
+      "x": 350,
+      "y": 150
+    },
+    {
+      "id": "hydrogen3",
+      "type": "hydrogen",
+      "x": 100,
+      "y": 200
+    },
+    {
+      "id": "hydrogen4",
+      "type": "hydrogen",
+      "x": 100,
+      "y": 350
+    },
+    {
+      "id": "hydrogen5",
+      "type": "hydrogen",
+      "x": 250,
+      "y": 500
+    },
+    {
+      "id": "hydrogen6",
+      "type": "hydrogen",
+      "x": 350,
+      "y": 400
+    }
+  ],
+
+  "bonds":
+  [
+    {
+      "id": "bond1",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen1",
+      "atom2": "carbon1"
+    },
+    {
+      "id": "bond2",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen2",
+      "atom2": "carbon1"
+    },
+    {
+      "id": "bond3",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen3",
+      "atom2": "carbon2"
+    },
+    {
+      "id": "bond4",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen4",
+      "atom2": "carbon3"
+    },
+    {
+      "id": "bond5",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen5",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond6",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "hydrogen6",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond7",
+      "type": "double",
+      "classes": ["clickableBond"],
+      "atom1": "carbon1",
+      "atom2": "carbon2"
+    },
+    {
+      "id": "bond8",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon2",
+      "atom2": "carbon3"
+    },
+    {
+      "id": "bond9",
+      "type": "double",
+      "classes": ["clickableBond"],
+      "atom1": "carbon3",
+      "atom2": "carbon4"
+    },
+    {
+      "id": "bond10",
+      "type": "double",
+      "classes": ["clickableBond", "destroyableBond"],
+      "atom1": "carbon5",
+      "atom2": "carbon6",
+      "customCallbacks": {
+        "destroyableBond": [
+          {
+            "funcName": "addPropertiesToAtom",
+            "params": { "atom": "carbon1", "properties": ["isEnabledToPair"] }
+          },
+          {
+            "funcName": "addPropertiesToAtom",
+            "params": { "atom": "carbon4", "properties": ["isEnabledToPair"] }
+          },
+          {
+            "funcName": "makeDraggable",
+            "params": { "element": "carbon5" }
+          },
+          {
+            "funcName": "makeDraggable",
+            "params": { "element": "carbon6" }
+          },
+          {
+            "funcName": "searchForPairOnDrag",
+            "params": { "atom1": "carbon5", "atom2": "carbon1" }
+          },
+          {
+            "funcName": "searchForPairOnDrag",
+            "params": { "atom1": "carbon6", "atom2": "carbon4" }
+          }
+        ]
+      }
+    }
+  ],
+
+  "winConditions": 2
+}
