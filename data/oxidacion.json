@@ -133,8 +133,8 @@
       "customCallbacks": {
         "destroyableBond": [
           {
-            "funcName": "addPropertiesToAtom",
-            "params": { "atom": "oxygen2", "properties": ["isEnabledToPair"] }
+            "funcName": "setPropertiesToElement",
+            "params": { "element": "oxygen2", "properties": ["isEnabledToPair"] }
           },
           {
             "funcName": "destroyElement",
@@ -168,8 +168,8 @@
       "customCallbacks": {
         "destroyableBond": [
           {
-            "funcName": "addPropertiesToAtom",
-            "params": { "atom": "oxygen2", "properties": ["isEnabledToPair"] }
+            "funcName": "setPropertiesToElement",
+            "params": { "element": "oxygen2", "properties": ["isEnabledToPair"] }
           },
           {
             "funcName": "makeDraggable",

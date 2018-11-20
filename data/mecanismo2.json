@@ -227,12 +227,12 @@
       "customCallbacks": {
         "destroyableBond": [
           {
-            "funcName": "addPropertiesToAtom",
-            "params": { "atom": "carbon2", "properties": ["isEnabledToPair"] }
+            "funcName": "setPropertiesToElement",
+            "params": { "element": "carbon2", "properties": ["isEnabledToPair"] }
           },
           {
-            "funcName": "addPropertiesToAtom",
-            "params": { "atom": "oxygen", "properties": ["isEnabledToPair"] }
+            "funcName": "setPropertiesToElement",
+            "params": { "element": "oxygen", "properties": ["isEnabledToPair"] }
           },
           {
             "funcName": "setAtomAsIon",

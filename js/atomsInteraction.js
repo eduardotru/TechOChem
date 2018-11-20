@@ -14,11 +14,33 @@ let winMessage = '';
  * @returns {boolean} True if the atoms are close to each other. False otherwise.
  */
 const areNear = (atom1, atom2, scale) => {
+  let dist = distanceBetweenAtoms(atom1, atom2);
+  return dist < (atom1.children[0].radius() + 2 * atom2.children[0].radius()) * scale;
+}
+
+const distanceBetweenAtoms = (atom1, atom2) => {
   let x = atom1.children[0].getAbsolutePosition().x - atom2.children[0].getAbsolutePosition().x;
   let y = atom1.children[0].getAbsolutePosition().y - atom2.children[0].getAbsolutePosition().y;
   let dist = Math.pow(x, 2) + Math.pow(y, 2);
   dist = Math.sqrt(dist);
-  return dist < (atom1.children[0].radius() + 2 * atom2.children[0].radius()) * scale;
+  return dist;
+}
+
+const haveSimilarDistance = (atomOrigin, atomsDest, scale) => {
+  let distances = atomsDest.map((atomDest) => {
+    return distanceBetweenAtoms(atomOrigin, atomDest);
+  });
+
+  let diameter = atomOrigin.children[0].radius() * scale * 2;
+
+  for (let i = 0; i < distances.length - 1; i++) {
+    for (let j = i + 1; j < distances.length; j++) {
+      if (Math.abs(distances[i] - distances[j]) > diameter)
+        return false;
+    }
+  }
+
+  return true;
 }
 
 /**
@@ -61,29 +83,6 @@ const getCustomCallbacks = (bond, bondClass) => {
 
 
 // FUNCTIONS THAT ACT AS CALLBACKS
-
-/**
- * Adds properties to a given atom, without assigning them a specific value, just the boolean value
- * 'true'.
- * @param {Object} paramsObj An object whose properties contain values to be used in this function.
- * @param {string} paramsObj.atom Identifier of the atom to which properties are to be added.
- * @param {string[]} paramsObj.properties Name of the properties to be added to the atom.
- * @param {Konva.Layer} layer Layer in which the atom is found.
- * @param {Konva.Stage} stage Stage in which the layer lies.
- */
-const addPropertiesToAtomCallback = (paramsObj, layer, stage) => {
-  let atom = layer.findOne(`#${paramsObj.atom}`);
-  if (paramsObj.hasOwnProperty('values')) {
-    for (let index in paramsObj.properties) {
-      let property = paramsObj.properties[index];
-      atom[property] = paramsObj.values[index];
-    }
-  } else {
-    paramsObj.properties.map((property) => {
-      atom[property] = true;
-    }); 
-  }
-}
 
 /**
  * Creates a double bond between two atoms.
@@ -305,27 +304,31 @@ const searchForTwoPairsOnDragCallback = (paramsObj, layer, stage) => {
   atom3.filters([Konva.Filters.Brighten]);
 
   atom1.on('dragmove', (e) => {
-    if (atom2.isEnabledToPair && areNear(atom1, atom2, scale)) {
-      atom2.brightness(0.5);
+    if (haveSimilarDistance(atom1, [atom2, atom3], scale)) {
+      if (atom2.isEnabledToPair)
+        atom2.brightness(0.5);
+      else
+        atom2.brightness(0);
+      
+      if (atom3.isEnabledToPair)
+        atom3.brightness(0.5);
+      else
+        atom3.brightness(0);
     } else {
       atom2.brightness(0);
-    }
-
-    if (atom3.isEnabledToPair && areNear(atom1, atom3, scale)) {
-      atom3.brightness(0.5);
-    } else {
       atom3.brightness(0);
     }
   });
 
   atom1.on('dragend', (e) => {
-    if (atom2.isEnabledToPair && areNear(atom1, atom2, scale) &&
-        atom3.isEnabledToPair && areNear(atom1, atom3, scale)
-        ) {
+    if (atom2.isEnabledToPair && atom3.isEnabledToPair &&
+        haveSimilarDistance(atom1, [atom2, atom3], scale)) {
       atom2.brightness(0);
       atom3.brightness(0);
 
       atom1.draggable(false);
+      atom2.draggable(false);
+      atom3.draggable(false);
 
       let newBond = singleBond(atom1, atom2);
       if(paramsObj.hasOwnProperty('bond1Id'))
@@ -430,10 +433,33 @@ const setAtomAsIonCallback = (paramsObj, layer, stage) => {
   layer.draw();
 }
 
+/**
+ * Sets properties to a given Konva.js element (adds them if it does not already have them).
+ * @param {Object} paramsObj An object whose properties contain values to be used in this function.
+ * @param {string} paramsObj.element Identifier of the element to which properties are to be set.
+ * @param {string[]} paramsObj.properties Name of the properties to be set in the element.
+ * @param {string[]} [paramsObj.values] Values of the properties to be set in the element. If they
+ * are not provided, all properties will be set to the boolean value 'true'.
+ * @param {Konva.Layer} layer Layer in which the atom is found.
+ * @param {Konva.Stage} stage Stage in which the layer lies.
+ */
+const setPropertiesToElementCallback = (paramsObj, layer, stage) => {
+  let element = layer.findOne(`#${paramsObj.element}`);
+  if (paramsObj.hasOwnProperty('values')) {
+    for (let index in paramsObj.properties) {
+      let property = paramsObj.properties[index];
+      element[property] = paramsObj.values[index];
+    }
+  } else {
+    paramsObj.properties.map((property) => {
+      element[property] = true;
+    }); 
+  }
+}
+
 
 /** @type {Object.<string, function>} A dictionary of possible callback functions to be used */
 let availableCallbacks = {
-  addPropertiesToAtom: addPropertiesToAtomCallback,
   createDoubleBond: createDoubleBondCallback,
   createSingleBond: createSingleBondCallback,
   destroyElement: destroyElementCallback,
@@ -441,6 +467,7 @@ let availableCallbacks = {
   searchForPairOnDrag: searchForPairOnDragCallback,
   searchForTwoPairsOnDrag: searchForTwoPairsOnDragCallback,
   setAtomAsIon: setAtomAsIonCallback,
+  setPropertiesToElement: setPropertiesToElementCallback,
   redrawBond: redrawBondCallback
 }
 

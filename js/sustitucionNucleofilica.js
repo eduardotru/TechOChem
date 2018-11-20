@@ -23,7 +23,8 @@ $.ajax({
     createAtomsInLayer(data.atoms, layer);
     createBondsInLayer(data.bonds, layer);
     beginInteractionInLayer(layer, stage);
-    setWinConditions(data.winConditions, "Has completado el mecanismo de reacción!");
+    setWinConditions(data.winConditions, `Has completado el mecanismo de reacción de sustitución
+    nucleofílica! Este mecanismo es importante para la formación de disolventes para pesticidas`);
     
     stage.add(layer);
     fitStageIntoParentContainer(stage, stageWidth, stageHeight, '#canvasContainer');  

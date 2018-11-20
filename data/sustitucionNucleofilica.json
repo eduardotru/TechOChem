@@ -129,12 +129,12 @@
             "params": { "element": "chlorine2" }
           },
           {
-            "funcName": "addPropertiesToAtom",
-            "params": { "atom": "aluminium", "properties": ["isEnabledToPair"] }
+            "funcName": "setPropertiesToElement",
+            "params": { "element": "aluminium", "properties": ["isEnabledToPair"] }
           },
           {
-            "funcName": "addPropertiesToAtom",
-            "params": { "atom": "carbon1", "properties": ["isEnabledToPair"] }
+            "funcName": "setPropertiesToElement",
+            "params": { "element": "carbon1", "properties": ["isEnabledToPair"] }
           },
           {
             "funcName": "searchForPairOnDrag",
@@ -143,16 +143,8 @@
               "atom2": "carbon1",
               "callbacks": [
                 {
-                  "funcName": "addPropertiesToAtom",
-                  "params": { "atom": "bond6", "properties": ["canBeDestroyed"], "values": [true] }
-                },
-                {
-                  "funcName": "makeDraggable",
-                  "params": { "element": "hydrogen1" }
-                },
-                {
-                  "funcName": "searchForPairOnDrag",
-                  "params": { "atom1": "hydrogen1", "atom2": "chlorine2" }
+                  "funcName": "setPropertiesToElement",
+                  "params": { "element": "bond6", "properties": ["canBeDestroyed"], "values": [true] }
                 }
               ]
             }
@@ -178,16 +170,16 @@
                       "params": { "atom1": "chlorine2", "atom2": "hydrogen1" }
                     },
                     {
-                      "funcName": "addPropertiesToAtom",
-                      "params": { "atom": "aluminium", "properties": ["isEnabledToPair"], "values": [false]}
+                      "funcName": "setPropertiesToElement",
+                      "params": { "element": "aluminium", "properties": ["isEnabledToPair"], "values": [false]}
                     },
                     {
-                      "funcName": "addPropertiesToAtom",
-                      "params": { "atom": "hydrogen1", "properties": ["isEnabledToPair"], "values": [true]}
+                      "funcName": "setPropertiesToElement",
+                      "params": { "element": "hydrogen1", "properties": ["isEnabledToPair"], "values": [true]}
                     },
                     {
-                      "funcName": "addPropertiesToAtom",
-                      "params": { "atom": "chlorine2", "properties": ["isEnabledToPair"], "values": [true]}
+                      "funcName": "setPropertiesToElement",
+                      "params": { "element": "chlorine2", "properties": ["isEnabledToPair"], "values": [true]}
                     }
                   ]
                 }
@@ -236,8 +228,16 @@
       "customCallbacks": {
         "destroyableBond": [
           {
-            "funcName": "addPropertiesToAtom",
-            "params": { "atom": "bond18", "properties": ["canBeDestroyed"], "values": [true] }
+            "funcName": "setPropertiesToElement",
+            "params": { "element": "bond18", "properties": ["canBeDestroyed"], "values": [true] }
+          },
+          {
+            "funcName": "makeDraggable",
+            "params": { "element": "hydrogen1" }
+          },
+          {
+            "funcName": "searchForPairOnDrag",
+            "params": { "atom1": "hydrogen1", "atom2": "chlorine2" }
           }
         ]
       }
@@ -319,5 +319,7 @@
       "atom1": "carbon6",
       "atom2": "hydrogen6"
     }
-  ]
+  ],
+
+  "winConditions": 3
 }
