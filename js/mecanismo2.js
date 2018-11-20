@@ -23,10 +23,12 @@ $.ajax({
     createAtomsInLayer(data.atoms, layer);
     createBondsInLayer(data.bonds, layer);
     beginInteractionInLayer(layer, stage);
-    setWinConditions(data.winConditions, "Has completado el segundo mecanismo de reacción!");
-    
+    setWinConditions(data.winConditions, `El resultado de esta reacción simple te da bromuro de etilo y etanol. Ambas sustancias son bastante
+útiles. El bromuro de étilo se utiliza para la gasolina como un antidetonante y el etanol es la
+sustancia principal en la creacion del alcohol para tomar.`);
+
     stage.add(layer);
-    fitStageIntoParentContainer(stage, stageWidth, stageHeight, '#canvasContainer');  
+    fitStageIntoParentContainer(stage, stageWidth, stageHeight, '#canvasContainer');
   },
   error: (err) => {
     console.log(err);

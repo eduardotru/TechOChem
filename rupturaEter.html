@@ -16,7 +16,7 @@
 <body class="blue-grey lighten-5">
   <ul id="dropdown1" class="dropdown-content">
     <li><a href="./oxidacion.html">Oxidación</a></li>
-    <li><a href="./mecanismo2.html">Mecanismo 2</a></li>
+    <li><a href="./rupturaEter.html">Ruptura del Éter</a></li>
     <li><a href="./adicion.html">Adición</a></li>
     <li><a href="./diels.html">Diels-Alder</a></li>
     <li><a href="./sustitucionNucleofilica.html">Sustitución Nucleofilica</a></li>
@@ -31,12 +31,61 @@
   </nav>
   <div id="topSection" class="container">
     <div class="section">
-      <h1 class="header center-align indigo-text">Mecanismo 2</h1>
+      <h1 class="header center-align indigo-text">Ruptura del Éter</h1>
       <div class="row center-align marginBot2">
         <h5 class="header col s12 light">
-          Descripción del mecanismo de reacción 2.
+          Un éter básico reacciona con ácido bromídrico para crear una reacción simple de sustitución. El
+hidrógeno se separa del bromo creando un catión y un anión. La carga de estos causan una separación
+entre el oxígeno y cualquiera de los dos carbonos a sus lados. El carbono con el oxígeno acaba con una
+carga negativa y el carbono sin el oxígeno recibió la carga negativa del enlace. El protón del hidrógeno se
+une con el oxígeno para balancearlo y lo mismo hace del anión del bromo con el carbocatión.
         </h5>
-        <h4 class="col s12 light"><i>C2H4 + HBr -> C2H5Br</i></h4>
+        <h4 class="col s12 light">
+          <math xmlns="http://www.w3.org/1998/Math/MathML">
+            <msub>
+              <mi>CH</mi>
+              <mn>3</mn>
+            </msub>
+            <msub>
+              <mi>CH</mi>
+              <mn>2</mn>
+            </msub>
+            <mfenced>
+              <mi>O</mi>
+            </mfenced>
+            <msub>
+              <mi>CH</mi>
+              <mn>2</mn>
+            </msub>
+            <msub>
+              <mi>CH</mi>
+              <mn>3</mn>
+            </msub>
+            <mo>+</mo>
+            <mi>H</mi>
+            <mi>Br</mi>
+            <mo>&#8594;</mo>
+            <msub>
+              <mi>CH</mi>
+              <mn>3</mn>
+            </msub>
+            <msub>
+              <mi>CH</mi>
+              <mn>2</mn>
+            </msub>
+            <mi>Br</mi>
+            <mo>+</mo>
+            <msub>
+              <mi>CH</mi>
+              <mn>3</mn>
+            </msub>
+            <msub>
+              <mi>CH</mi>
+              <mn>2</mn>
+            </msub>
+            <mi>OH</mi>
+          </math>
+        </h4>
       </div>
       <div class="row marginBot2">
         <div class="col s12 marginBot1 center-align">
@@ -62,12 +111,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://unpkg.com/konva@2.4.2/konva.min.js"></script>
   <script src="./js/sweetalert2.all.min.js"></script>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
   <script type="module" src="./js/mecanismo2.js"></script>
   <script>
     $(document).ready(function(){
       $(".dropdown-trigger").dropdown();
       $("#ayuda").click(function(){
-        swal('Mecanismo 2', 'Ayuda del mecanismo 2', 'question');
+        swal('Ruptura del Éter', `Usa la nomenclatura para plasmar correctamente la molecula.
+¿De qué manera se separaría el ácido bromídrico?
+¿Qué parte del éter podría reaccionar en la presencia de cationes o aniones?`, 'question');
       });
     });
   </script>
