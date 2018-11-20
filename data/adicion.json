@@ -129,12 +129,12 @@
       "customCallbacks": {
         "destroyableBond": [
           {
-            "funcName": "addPropertiesToAtom",
-            "params": { "atom": "carbon2", "properties": ["isEnabledToPair"] }
+            "funcName": "setPropertiesToElement",
+            "params": { "element": "carbon2", "properties": ["isEnabledToPair"] }
           },
           {
-            "funcName": "addPropertiesToAtom",
-            "params": { "atom": "carbon3", "properties": ["isEnabledToPair"] }
+            "funcName": "setPropertiesToElement",
+            "params": { "element": "carbon3", "properties": ["isEnabledToPair"] }
           },
           {
             "funcName": "destroyElement",
@@ -203,8 +203,8 @@
             "params": { "atom1": "bromium1", "atom2": "carbon2", "atom3": "carbon3", "bond1Id": "bond13", "bond2Id": "bond14",
               "callbacks": [
                 {
-                  "funcName": "addPropertiesToAtom",
-                  "params": { "atom": "carbon3", "properties": ["isEnabledToPair"] }
+                  "funcName": "setPropertiesToElement",
+                  "params": { "element": "carbon3", "properties": ["isEnabledToPair"] }
                 },
                 {
                   "funcName": "searchForPairOnDrag",

@@ -16,19 +16,15 @@ let stage = new Konva.Stage({
 let layer = new Konva.Layer();
 
 $.ajax({
-  url: './data/oxidacion.json',
+  url: './data/sustitucionNucleofilica.json',
   type: 'GET',
   dataType: 'json',
   success: (data) => {
     createAtomsInLayer(data.atoms, layer);
     createBondsInLayer(data.bonds, layer);
     beginInteractionInLayer(layer, stage);
-    setWinConditions(
-      data.winConditions,
-      `Las reacciones de oxidación son de gran importancia porque son la mayor fuente de energía en
-      el mundo, ya sea orgánica o inorgánica. Está presente en cualquier composición que contenga
-      oxígenos. La oxidación de alcoholes a grupos carbonilos también es un paso muy importante en
-      la degradación de grasa durante el metabolismo humano.`);
+    setWinConditions(data.winConditions, `Has completado el mecanismo de reacción de sustitución
+    nucleofílica! Este mecanismo es importante para la formación de disolventes para pesticidas`);
     
     stage.add(layer);
     fitStageIntoParentContainer(stage, stageWidth, stageHeight, '#canvasContainer');  
