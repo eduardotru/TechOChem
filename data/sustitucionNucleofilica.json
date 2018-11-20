@@ -109,14 +109,101 @@
       "y": 400
     }
   ],
+
   "bonds":
   [
     {
       "id": "bond1",
       "type": "single",
-      "classes": ["clickableBond"],
+      "classes": ["clickableBond", "destroyableBond"],
       "atom1": "chlorine1",
-      "atom2": "chlorine2"
+      "atom2": "chlorine2",
+      "customCallbacks": {
+        "destroyableBond": [
+          {
+            "funcName": "makeDraggable",
+            "params": { "element": "chlorine1" }
+          },
+          {
+            "funcName": "makeDraggable",
+            "params": { "element": "chlorine2" }
+          },
+          {
+            "funcName": "addPropertiesToAtom",
+            "params": { "atom": "aluminium", "properties": ["isEnabledToPair"] }
+          },
+          {
+            "funcName": "addPropertiesToAtom",
+            "params": { "atom": "carbon1", "properties": ["isEnabledToPair"] }
+          },
+          {
+            "funcName": "searchForPairOnDrag",
+            "params": {
+              "atom1": "chlorine1",
+              "atom2": "carbon1",
+              "callbacks": [
+                {
+                  "funcName": "addPropertiesToAtom",
+                  "params": { "atom": "bond6", "properties": ["canBeDestroyed"], "values": [true] }
+                },
+                {
+                  "funcName": "makeDraggable",
+                  "params": { "element": "hydrogen1" }
+                },
+                {
+                  "funcName": "searchForPairOnDrag",
+                  "params": { "atom1": "hydrogen1", "atom2": "chlorine2" }
+                }
+              ]
+            }
+          },
+          {
+            "funcName": "searchForPairOnDrag",
+            "params": {
+              "atom1": "chlorine2",
+              "atom2": "aluminium",
+              "bond": {
+                "id": "bond18",
+                "type": "single",
+                "classes": ["clickableBond", "destroyableBond"],
+                "properties": { "canBeDestroyed": false },
+                "customCallbacks": {
+                  "destroyableBond": [
+                    {
+                      "funcName": "makeDraggable",
+                      "params": { "element": "chlorine2" }
+                    },
+                    {
+                      "funcName": "searchForPairOnDrag",
+                      "params": { "atom1": "chlorine2", "atom2": "hydrogen1" }
+                    },
+                    {
+                      "funcName": "addPropertiesToAtom",
+                      "params": { "atom": "aluminium", "properties": ["isEnabledToPair"], "values": [false]}
+                    },
+                    {
+                      "funcName": "addPropertiesToAtom",
+                      "params": { "atom": "hydrogen1", "properties": ["isEnabledToPair"], "values": [true]}
+                    },
+                    {
+                      "funcName": "addPropertiesToAtom",
+                      "params": { "atom": "chlorine2", "properties": ["isEnabledToPair"], "values": [true]}
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "chlorine1", "type": "negative" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "chlorine2", "type": "positive" }
+          }
+        ]
+      }
     },
     {
       "id": "bond2",
@@ -142,9 +229,18 @@
     {
       "id": "bond6",
       "type": "single",
-      "classes": ["clickableBond"],
+      "classes": ["clickableBond", "destroyableBond"],
       "atom1": "hydrogen1",
-      "atom2": "carbon1"
+      "atom2": "carbon1",
+      "properties": { "canBeDestroyed": false },
+      "customCallbacks": {
+        "destroyableBond": [
+          {
+            "funcName": "addPropertiesToAtom",
+            "params": { "atom": "bond18", "properties": ["canBeDestroyed"], "values": [true] }
+          }
+        ]
+      }
     },
     {
       "id": "bond7",

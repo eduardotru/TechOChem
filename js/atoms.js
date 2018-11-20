@@ -140,8 +140,15 @@ const createBondInLayer = (bondInfo, layer) => {
     bondNode.customCallbacks = bondInfo.customCallbacks;
   if (bondInfo.hasOwnProperty('id'))
     bondNode.id(bondInfo.id);
+  if (bondInfo.hasOwnProperty('properties')) {
+    Object.keys(bondInfo.properties).forEach((key, index) => {
+      bondNode[key] = bondInfo.properties[key];
+    });
+  }
   layer.add(bondNode);
   bondNode.moveToBottom();
+  
+  return bondNode;
 }
 
 const createBondsInLayer = (bondsInfo, layer) => {

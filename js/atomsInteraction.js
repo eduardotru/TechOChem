@@ -1,4 +1,4 @@
-import { singleBond, doubleBond } from './atoms.js';
+import { createBondInLayer, singleBond, doubleBond } from './atoms.js';
 
 let currentWinConditions = 0;
 let totalWinConditions = 0;
@@ -73,9 +73,16 @@ const getCustomCallbacks = (bond, bondClass) => {
  */
 const addPropertiesToAtomCallback = (paramsObj, layer, stage) => {
   let atom = layer.findOne(`#${paramsObj.atom}`);
-  paramsObj.properties.map((property) => {
-    atom[property] = true;
-  });
+  if (paramsObj.hasOwnProperty('values')) {
+    for (let index in paramsObj.properties) {
+      let property = paramsObj.properties[index];
+      atom[property] = paramsObj.values[index];
+    }
+  } else {
+    paramsObj.properties.map((property) => {
+      atom[property] = true;
+    }); 
+  }
 }
 
 /**
@@ -226,14 +233,25 @@ const searchForPairOnDragCallback = (paramsObj, layer, stage) => {
     if (atom2.isEnabledToPair && areNear(atom1, atom2, scale)) {
       atom2.brightness(0);
       atom1.draggable(false);
+      atom2.draggable(false);
 
-      let newBond = singleBond(atom1, atom2);
-      if(paramsObj.hasOwnProperty('bondId'))
-        newBond.id(paramsObj.bondId);
+      let bondInfo = {};
+      if (paramsObj.hasOwnProperty('bond'))
+        bondInfo = paramsObj.bond;
+      if (!bondInfo.hasOwnProperty('atom1'))
+        bondInfo.atom1 = atom1.id();
+      if (!bondInfo.hasOwnProperty('atom2'))
+        bondInfo.atom2 = atom2.id();
+      if (!bondInfo.hasOwnProperty('type'))
+        bondInfo.type = 'single';
+      
+      let newBond = createBondInLayer(bondInfo, layer);
+
       newBond.scale({x: 1 / scale, y: 1 / scale});
       newBond.strokeWidth(newBond.strokeWidth() * scale);
-      layer.add(newBond);
-      newBond.moveToBottom();
+
+      let newBondClasses = newBond.name().split(' ');
+      applyClassesToElement(newBond, newBondClasses, layer, stage);
 
       // Checks if the first atom was an ion, in which case deletes the ion charge, since the atom
       // has been neutralized with the new bond.
@@ -440,6 +458,38 @@ const processCallbacks = (callbacks, layer, stage) => {
 }
 
 
+const applyClassesToElement = (element, classes, layer, stage) => {
+  classes.map((elemClass) => {
+    switch (elemClass) {
+      case 'clickableBond':
+        element.on('mouseover', (e) => {
+          e.target.stroke('red');
+          document.body.style.cursor = 'pointer';
+          layer.draw();
+        });
+
+        element.on('mouseout touchend', (e) => {
+          e.target.stroke('black');
+          document.body.style.cursor = 'default';
+          layer.draw();
+        });
+
+        break;
+
+      case 'destroyableBond':
+        let callbacks = getCustomCallbacks(element, elemClass);
+        element.on('click', (e) => {
+          if (!element.hasOwnProperty('canBeDestroyed') || element.canBeDestroyed) {
+            processCallbacks(callbacks, layer, stage);
+            e.target.destroy();
+            layer.draw();
+          }
+        });
+        break;
+    }
+  });
+}
+
 /**
  * Applies all interactive features given by Konva names (similar to CSS classes) to the elements
  * found in a specific layer within a stage.
@@ -452,27 +502,12 @@ const beginInteractionInLayer = (layer, stage) => {
 
   bondClass = 'clickableBond';
   layer.find(`.${bondClass}`).map((bond) => {
-    bond.on('mouseover', (e) => {
-      e.target.stroke('red');
-      document.body.style.cursor = 'pointer';
-      layer.draw();
-    });
-
-    bond.on('mouseout touchend', (e) => {
-      e.target.stroke('black');
-      document.body.style.cursor = 'default';
-      layer.draw();
-    });
+    applyClassesToElement(bond, [bondClass], layer, stage);
   });
 
   bondClass = 'destroyableBond';
   layer.find(`.${bondClass}`).map((bond) => {
-    let callbacks = getCustomCallbacks(bond, bondClass);
-    bond.on('click', (e) => {
-      processCallbacks(callbacks, layer, stage);
-      e.target.destroy();
-      layer.draw();
-    });
+    applyClassesToElement(bond, [bondClass], layer, stage);
   });
 }
 
