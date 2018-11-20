@@ -10,31 +10,31 @@
       "id": "carbon2",
       "type": "carbon",
       "x": 200,
-      "y": 200
+      "y": 150
     },
     {
       "id": "carbon3",
       "type": "carbon",
       "x": 200,
-      "y": 350
+      "y": 250
     },
     {
       "id": "carbon4",
       "type": "carbon",
       "x": 300,
-      "y": 450
+      "y": 300
     },
     {
       "id": "carbon5",
       "type": "carbon",
-      "x": 700,
-      "y": 200
+      "x": 550,
+      "y": 150
     },
     {
       "id": "carbon6",
       "type": "carbon",
-      "x": 700,
-      "y": 350
+      "x": 550,
+      "y": 300
     },
     {
       "id": "hydrogen1",
@@ -52,25 +52,49 @@
       "id": "hydrogen3",
       "type": "hydrogen",
       "x": 100,
-      "y": 200
+      "y": 150
     },
     {
       "id": "hydrogen4",
       "type": "hydrogen",
       "x": 100,
-      "y": 350
+      "y": 250
     },
     {
       "id": "hydrogen5",
       "type": "hydrogen",
       "x": 250,
-      "y": 500
+      "y": 350
     },
     {
       "id": "hydrogen6",
       "type": "hydrogen",
       "x": 350,
-      "y": 400
+      "y": 250
+    },
+    {
+      "id": "hydrogen7",
+      "type": "hydrogen",
+      "x": 450,
+      "y": 100
+    },
+    {
+      "id": "hydrogen8",
+      "type": "hydrogen",
+      "x": 450,
+      "y": 150
+    },
+    {
+      "id": "hydrogen9",
+      "type": "hydrogen",
+      "x": 450,
+      "y": 300
+    },
+    {
+      "id": "hydrogen10",
+      "type": "hydrogen",
+      "x": 450,
+      "y": 350
     }
   ],
 
@@ -160,6 +184,34 @@
             "params": { "element": "carbon5" }
           },
           {
+            "funcName": "destroyElement",
+            "params": { "element": "bond10" }
+          },
+          {
+            "funcName": "createSingleBond",
+            "params": { "atom1": "carbon5", "atom2": "carbon6", "bondId": "bond10" }
+          },
+          {
+            "funcName": "redrawBond",
+            "params": { "element": "bond10", "atom1": "carbon5", "atom2": "carbon6", "bondId": "bond10" }
+          },
+          {
+            "funcName": "redrawBond",
+            "params": { "element": "bond11", "atom1": "carbon5", "atom2": "hydrogen7", "bondId": "bond11" }
+          },
+          {
+            "funcName": "redrawBond",
+            "params": { "element": "bond12", "atom1": "carbon5", "atom2": "hydrogen8", "bondId": "bond12" }
+          },
+          {
+            "funcName": "redrawBond",
+            "params": { "element": "bond13", "atom1": "carbon6", "atom2": "hydrogen9", "bondId": "bond13" }
+          },
+          {
+            "funcName": "redrawBond",
+            "params": { "element": "bond14", "atom1": "carbon6", "atom2": "hydrogen10", "bondId": "bond14" }
+          },
+          {
             "funcName": "makeDraggable",
             "params": { "element": "carbon6" }
           },
@@ -170,9 +222,41 @@
           {
             "funcName": "searchForPairOnDrag",
             "params": { "atom1": "carbon6", "atom2": "carbon4" }
+          },
+          {
+            "funcName": "setAtomAsIon",
+            "params": { "atom": "carbon6", "type": "negative" }
           }
         ]
       }
+    },
+    {
+      "id": "bond11",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon5",
+      "atom2": "hydrogen7"
+    },
+    {
+      "id": "bond12",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon5",
+      "atom2": "hydrogen8"
+    },
+    {
+      "id": "bond13",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon6",
+      "atom2": "hydrogen9"
+    },
+    {
+      "id": "bond14",
+      "type": "single",
+      "classes": ["clickableBond"],
+      "atom1": "carbon6",
+      "atom2": "hydrogen10"
     }
   ],
 

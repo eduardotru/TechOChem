@@ -113,6 +113,8 @@ const createSingleBondCallback = (paramsObj, layer, stage) => {
   let atom2 = layer.findOne(`#${paramsObj.atom2}`);
   let scale = stage.scale().x;
   let newBond = singleBond(atom1, atom2);
+  if(paramsObj.hasOwnProperty('bondId'))
+        newBond.id(paramsObj.bondId);
   newBond.scale({x: 1 / scale, y: 1 / scale});
   newBond.strokeWidth(newBond.strokeWidth() * scale);
   layer.add(newBond);
@@ -131,6 +133,41 @@ const destroyElementCallback = (paramsObj, layer, stage) => {
   let element = layer.find(`#${paramsObj.element}`);
   element.destroy();
   layer.draw();
+}
+
+const redrawBondCallback = (paramsObj, layer, stage) => {
+  let element = layer.find(`#${paramsObj.element}`);
+  let atom1 = layer.find(`#${paramsObj.atom1}`);
+  let atom2 = layer.find(`#${paramsObj.atom2}`);
+
+  atom1.on('dragend', (e) => {
+      layer.find(`#${paramsObj.bondId}`).destroy();
+      let atom1 = layer.findOne(`#${paramsObj.atom1}`);
+      let atom2 = layer.findOne(`#${paramsObj.atom2}`);
+      let scale = stage.scale().x;
+      let newBond = singleBond(atom1, atom2);
+      newBond.scale({x: 1 / scale, y: 1 / scale});
+      newBond.strokeWidth(newBond.strokeWidth() * scale);
+      newBond.id(paramsObj.bondId);
+      layer.add(newBond);
+      newBond.moveToBottom();
+      layer.draw();
+  });
+
+  atom2.on('dragend', (e) => {
+      layer.find(`#${paramsObj.bondId}`).destroy();
+      let atom1 = layer.findOne(`#${paramsObj.atom1}`);
+      let atom2 = layer.findOne(`#${paramsObj.atom2}`);
+      let scale = stage.scale().x;
+      let newBond = singleBond(atom1, atom2);
+      newBond.scale({x: 1 / scale, y: 1 / scale});
+      newBond.strokeWidth(newBond.strokeWidth() * scale);
+      newBond.id(paramsObj.bondId);
+      layer.add(newBond);
+      newBond.moveToBottom();
+      layer.draw();
+  });
+  
 }
 
 /**
@@ -385,7 +422,8 @@ let availableCallbacks = {
   makeDraggable: makeDraggableCallback,
   searchForPairOnDrag: searchForPairOnDragCallback,
   searchForTwoPairsOnDrag: searchForTwoPairsOnDragCallback,
-  setAtomAsIon: setAtomAsIonCallback
+  setAtomAsIon: setAtomAsIonCallback,
+  redrawBond: redrawBondCallback
 }
 
 /**
