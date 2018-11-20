@@ -18,6 +18,12 @@ const areNear = (atom1, atom2, scale) => {
   return dist < (atom1.children[0].radius() + 2 * atom2.children[0].radius()) * scale;
 }
 
+/**
+ * Finds the distance between two atoms.
+ * @param {Konva.Group} atom1 First atom node. 
+ * @param {Konva.Group} atom2 Second atom node.
+ * @returns {number} The distance between the two atoms.
+ */
 const distanceBetweenAtoms = (atom1, atom2) => {
   let x = atom1.children[0].getAbsolutePosition().x - atom2.children[0].getAbsolutePosition().x;
   let y = atom1.children[0].getAbsolutePosition().y - atom2.children[0].getAbsolutePosition().y;
@@ -26,6 +32,15 @@ const distanceBetweenAtoms = (atom1, atom2) => {
   return dist;
 }
 
+/**
+ * Checks whether the distance of an atom to other atoms is similar, i.e. if each distance has a
+ * difference less than a certain value (in this case, the diameter of the atom taken as origin).
+ * @param {Konva.Group} atomOrigin Atom taken as origin (i.e. from which the distance is calculated) 
+ * @param {Konva.Group[]} atomsDest Atoms to which the distance is calculated from the atomOrigin.
+ * @param {number} scale Scale of the Konva.js stage the two atoms are in.
+ * @returns {boolean} True if all the calculated distances from the atomOrigin are similar. False
+ * otherwise. 
+ */
 const haveSimilarDistance = (atomOrigin, atomsDest, scale) => {
   let distances = atomsDest.map((atomDest) => {
     return distanceBetweenAtoms(atomOrigin, atomDest);
@@ -204,12 +219,21 @@ const makeDraggableCallback = (paramsObj, layer, stage) => {
 /**
  * Adds an event listener to a given atom so that whenever the user drags it, the system detects
  * whether or not is close to another specific atom. If it is close, the other atom is highlighted
- * and, if the user stops dragging, a single bond is formed between both atoms and a win condition
- * is met.
+ * and, if the user stops dragging, a bond is formed between both atoms and a win condition is met.
  * @param {Object} paramsObj An object whose properties contain values to be used in this function.
  * @param {string} paramsObj.atom1 Identifier of the atom that will be dragged.
  * @param {string} paramsObj.atom2 Identifier of the atom that, if close to the first one, will be
  * highlighted.
+ * @param {Object} [paramsObj.bond] Details about the bond to be formed when the user stops dragging
+ * the first atom while being close to the second atom.
+ * @param {string} [paramsObj.bond.id] Id of the bond to be formed.
+ * @param {string} [paramsObj.bond.type=single] Type of the bond to be formed.
+ * @param {string[]} [paramsObj.bond.classes] Classes of the bond to be formed (they will add
+ * interactivity to the bond).
+ * @param {Object.<string, Object[]>} [paramsObj.bond.customCallbacks] Object whose keys are the
+ * name of bond classes and whose values are arrays of objects, where each object specifies the name
+ * of a function and its parameters. That function will be executed when the main action of the
+ * corresponding bond class occurs. 
  * @param {Konva.Layer} layer Layer in which the atoms are found.
  * @param {Konva.Stage} stage Stage in which the layer lies.
  */
@@ -484,7 +508,13 @@ const processCallbacks = (callbacks, layer, stage) => {
   });
 }
 
-
+/**
+ * Applies the characteristics (interactivity) of a given set of classes to a Konva.js element.
+ * @param {Konva.Node} element Element to which the classes are going to be applied. 
+ * @param {string[]} classes Array containing the names of the classes to apply to the element.
+ * @param {Konva.Layer} layer Layer in which the element is found.
+ * @param {Konva.Stage} stage Stage in which the layer lies.
+ */
 const applyClassesToElement = (element, classes, layer, stage) => {
   classes.map((elemClass) => {
     switch (elemClass) {
