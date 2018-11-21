@@ -16,7 +16,7 @@ let stage = new Konva.Stage({
 let layer = new Konva.Layer();
 
 $.ajax({
-  url: './data/mecanismo1.json',
+  url: './data/oxidacion.json',
   type: 'GET',
   dataType: 'json',
   success: (data) => {

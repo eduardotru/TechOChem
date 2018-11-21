@@ -16,19 +16,18 @@ let stage = new Konva.Stage({
 let layer = new Konva.Layer();
 
 $.ajax({
-  url: './data/mecanismo2.json',
+  url: './data/sustitucionNucleofilica.json',
   type: 'GET',
   dataType: 'json',
   success: (data) => {
     createAtomsInLayer(data.atoms, layer);
     createBondsInLayer(data.bonds, layer);
     beginInteractionInLayer(layer, stage);
-    setWinConditions(data.winConditions, `El resultado de esta reacción simple te da bromuro de etilo y etanol. Ambas sustancias son bastante
-útiles. El bromuro de étilo se utiliza para la gasolina como un antidetonante y el etanol es la
-sustancia principal en la creacion del alcohol para tomar.`);
-
+    setWinConditions(data.winConditions, `Has completado el mecanismo de reacción de sustitución
+    nucleofílica! Este mecanismo es importante para la formación de disolventes para pesticidas`);
+    
     stage.add(layer);
-    fitStageIntoParentContainer(stage, stageWidth, stageHeight, '#canvasContainer');
+    fitStageIntoParentContainer(stage, stageWidth, stageHeight, '#canvasContainer');  
   },
   error: (err) => {
     console.log(err);
