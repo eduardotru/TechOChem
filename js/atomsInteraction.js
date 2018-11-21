@@ -20,7 +20,7 @@ const areNear = (atom1, atom2, scale) => {
 
 /**
  * Finds the distance between two atoms.
- * @param {Konva.Group} atom1 First atom node. 
+ * @param {Konva.Group} atom1 First atom node.
  * @param {Konva.Group} atom2 Second atom node.
  * @returns {number} The distance between the two atoms.
  */
@@ -35,11 +35,11 @@ const distanceBetweenAtoms = (atom1, atom2) => {
 /**
  * Checks whether the distance of an atom to other atoms is similar, i.e. if each distance has a
  * difference less than a certain value (in this case, the diameter of the atom taken as origin).
- * @param {Konva.Group} atomOrigin Atom taken as origin (i.e. from which the distance is calculated) 
+ * @param {Konva.Group} atomOrigin Atom taken as origin (i.e. from which the distance is calculated)
  * @param {Konva.Group[]} atomsDest Atoms to which the distance is calculated from the atomOrigin.
  * @param {number} scale Scale of the Konva.js stage the two atoms are in.
  * @returns {boolean} True if all the calculated distances from the atomOrigin are similar. False
- * otherwise. 
+ * otherwise.
  */
 const haveSimilarDistance = (atomOrigin, atomsDest, scale) => {
   let distances = atomsDest.map((atomDest) => {
@@ -188,7 +188,7 @@ const redrawBondCallback = (paramsObj, layer, stage) => {
       newBond.moveToBottom();
       layer.draw();
   });
-  
+
 }
 
 /**
@@ -233,7 +233,7 @@ const makeDraggableCallback = (paramsObj, layer, stage) => {
  * @param {Object.<string, Object[]>} [paramsObj.bond.customCallbacks] Object whose keys are the
  * name of bond classes and whose values are arrays of objects, where each object specifies the name
  * of a function and its parameters. That function will be executed when the main action of the
- * corresponding bond class occurs. 
+ * corresponding bond class occurs.
  * @param {Konva.Layer} layer Layer in which the atoms are found.
  * @param {Konva.Stage} stage Stage in which the layer lies.
  */
@@ -267,7 +267,7 @@ const searchForPairOnDragCallback = (paramsObj, layer, stage) => {
         bondInfo.atom2 = atom2.id();
       if (!bondInfo.hasOwnProperty('type'))
         bondInfo.type = 'single';
-      
+
       let newBond = createBondInLayer(bondInfo, layer);
 
       newBond.scale({x: 1 / scale, y: 1 / scale});
@@ -333,7 +333,7 @@ const searchForTwoPairsOnDragCallback = (paramsObj, layer, stage) => {
         atom2.brightness(0.5);
       else
         atom2.brightness(0);
-      
+
       if (atom3.isEnabledToPair)
         atom3.brightness(0.5);
       else
@@ -477,7 +477,7 @@ const setPropertiesToElementCallback = (paramsObj, layer, stage) => {
   } else {
     paramsObj.properties.map((property) => {
       element[property] = true;
-    }); 
+    });
   }
 }
 
@@ -510,7 +510,7 @@ const processCallbacks = (callbacks, layer, stage) => {
 
 /**
  * Applies the characteristics (interactivity) of a given set of classes to a Konva.js element.
- * @param {Konva.Node} element Element to which the classes are going to be applied. 
+ * @param {Konva.Node} element Element to which the classes are going to be applied.
  * @param {string[]} classes Array containing the names of the classes to apply to the element.
  * @param {Konva.Layer} layer Layer in which the element is found.
  * @param {Konva.Stage} stage Stage in which the layer lies.
@@ -535,7 +535,7 @@ const applyClassesToElement = (element, classes, layer, stage) => {
 
       case 'destroyableBond':
         let callbacks = getCustomCallbacks(element, elemClass);
-        element.on('click', (e) => {
+        element.on('click tap touchend', (e) => {
           if (!element.hasOwnProperty('canBeDestroyed') || element.canBeDestroyed) {
             processCallbacks(callbacks, layer, stage);
             e.target.destroy();
