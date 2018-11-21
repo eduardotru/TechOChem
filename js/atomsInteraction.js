@@ -161,7 +161,7 @@ const redrawBondCallback = (paramsObj, layer, stage) => {
   let atom1 = layer.find(`#${paramsObj.atom1}`);
   let atom2 = layer.find(`#${paramsObj.atom2}`);
 
-  atom1.on('dragend', (e) => {
+  atom1.on('dragmove', (e) => {
       layer.find(`#${paramsObj.bondId}`).destroy();
       let atom1 = layer.findOne(`#${paramsObj.atom1}`);
       let atom2 = layer.findOne(`#${paramsObj.atom2}`);
@@ -175,7 +175,7 @@ const redrawBondCallback = (paramsObj, layer, stage) => {
       layer.draw();
   });
 
-  atom2.on('dragend', (e) => {
+  atom2.on('dragmove', (e) => {
       layer.find(`#${paramsObj.bondId}`).destroy();
       let atom1 = layer.findOne(`#${paramsObj.atom1}`);
       let atom2 = layer.findOne(`#${paramsObj.atom2}`);
