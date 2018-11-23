@@ -1,6 +1,9 @@
 let urlParamsDict = {};
 
-// Initializes the Materialize components.
+/**
+ * Initializes Materialize components and fills up a dictionary to store the names and values of
+ * the GET parameters.
+ */
 const init = () => {
   $('.sidenav').sidenav();
   $(".dropdown-trigger").dropdown();
@@ -12,6 +15,11 @@ const init = () => {
   }
 }
 
+/**
+ * Gets the value of a specific parameter passed as part of the URL (GET parameter).
+ * @param {string} paramName Name of the URL parameter whose value is to be returned.
+ * @returns {string} Value of the URL parameter. Null if the parameter does not exist in the URL. 
+ */
 const getUrlParameter = (paramName) => {
   if (urlParamsDict.hasOwnProperty(paramName))
     return urlParamsDict[paramName];
