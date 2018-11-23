@@ -19,13 +19,24 @@
     <li><a href="./rupturaEter.html">Ruptura del Éter</a></li>
     <li><a href="./adicion.html">Adición</a></li>
     <li><a href="./diels.html">Diels-Alder</a></li>
-    <li><a href="./sustitucionNucleofilica.html">Sustitución Nucleofilica</a></li>
+    <li><a href="./sustitucionNucleofilica.html">Sustitución Nucleofílica</a></li>
   </ul>
+  <ul id="mobile-menu" class="sidenav">
+    <li><a class="subheader">Selecciona el nivel</a></li>
+    <li><div class="divider"></div></li> 
+    <li><a class="waves-effect indigo-text" href="./oxidacion.html">Oxidación</a></li>
+    <li><a class="waves-effect indigo-text" href="./rupturaEter.html">Ruptura del Éter</a></li>
+    <li><a class="waves-effect indigo-text" href="./adicion.html">Adición</a></li>
+    <li><a class="waves-effect indigo-text" href="./diels.html">Diels-Alder</a></li>
+    <li><a class="waves-effect indigo-text" href="./sustitucionNucleofilica.html">Sustitución Nucleofílica</a></li>
+  </ul>
+  <div>
   <nav>
     <div class="nav-wrapper indigo">
-      <a href="./index.html" class="brand-logo">Mecha React</a>
+      <a href="./index.html" class="brand-logo navLogo noOutline">Mecha React</a>
+      <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
-        <li><a class="dropdown-trigger" href="#" data-target="dropdown1">Selecciona el nivel<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-trigger noOutline" href="#" data-target="dropdown1">Selecciona el nivel<i class="material-icons right">arrow_drop_down</i></a></li>
       </ul>
     </div>
   </nav>
@@ -40,7 +51,7 @@ enlace con el oxígeno; para estabilizarse, el oxígeno debe, de la misma manera
 propio hidrógeno. Esto acaba creando una molecula con el grupo funcional de cetona y el resto de los
 hidrógenos forman agua con el oxígeno.
         </h5>
-        <h4 class="col s12 light">
+        <h4 id="mathContainer" class="col s12">
           <math xmlns="http://www.w3.org/1998/Math/MathML">
             <msub>
               <mi>CH</mi>
@@ -62,9 +73,9 @@ hidrógenos forman agua con el oxígeno.
               <mi>CH</mi>
               <mn>3</mn>
             </msub>
-            <mi>C</mi>
+            <mi mathvariant="normal">C</mi>
             <mfenced>
-              <mi>O</mi>
+              <mi mathvariant="normal">O</mi>
             </mfenced>
             <msub>
               <mi>CH</mi>
@@ -72,10 +83,10 @@ hidrógenos forman agua con el oxígeno.
             </msub>
             <mo>+</mo>
             <msub>
-              <mi>H</mi>
+              <mi mathvariant="normal">H</mi>
               <mn>2</mn>
             </msub>
-            <mi>O</mi>
+            <mi mathvariant="normal">O</mi>
           </math>
         </h4>
       </div>
