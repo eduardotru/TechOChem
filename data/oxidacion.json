@@ -209,5 +209,15 @@
     }
   ],
 
-  "winConditions": 2
+  "winConditions": 2,
+
+  "name": "Oxidación",
+
+  "description": "El carbono alfa de la molécula (el que está conectado con el grupo funcional), al estar en la presencia de los oxígenos se oxida; para esto, debe perder el enlace que tiene con el hidrógeno y generar un doble enlace con el oxígeno; para estabilizarse, el oxígeno debe, de la misma manera, perder el enlace con su propio hidrógeno. Esto acaba creando una molecula con el grupo funcional de cetona y el resto de los hidrógenos forman agua con el oxígeno.",
+
+  "formula": "<msub><mi>CH</mi><mn>3</mn></msub><mi>CH</mi><mfenced><mi>OH</mi></mfenced><msub><mi>CH</mi><mn>3</mn></msub><mover><mo>&#8594;</mo><mi>[O]</mi></mover><msub><mi>CH</mi><mn>3</mn></msub><mi mathvariant='normal'>C</mi><mfenced><mi mathvariant='normal'>O</mi></mfenced><msub><mi>CH</mi><mn>3</mn></msub><mo>+</mo><msub><mi mathvariant='normal'>H</mi><mn>2</mn></msub><mi mathvariant='normal'>O</mi>",
+
+  "help": "Usa la nomenclatura para plasmar correctamente la molecula. ¿Qué es lo que sucede en una reacción de oxidación? ¿Se pierde o se gana electrones? ¿Quién es el que es afectado en este tipo de reacción?",
+
+  "winMessage": "Las reacciones de oxidación son de gran importancia porque son la mayor fuente de energía en el mundo, ya sea orgánica o inorgánica. Está presente en cualquier composición que contenga oxígenos. La oxidación de alcoholes a grupos carbonilos también es un paso muy importante en la degradación de grasa durante el metabolismo humano."
 }

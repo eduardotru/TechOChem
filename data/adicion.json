@@ -1,4 +1,5 @@
-{"atoms": [
+{"atoms":
+  [
     {
       "id": "carbon1",
       "type": "carbon",
@@ -84,7 +85,9 @@
       "y": 200
     }
   ],
-  "bonds" :[
+
+  "bonds":
+  [
     {
       "id": "bond1",
       "type": "single",
@@ -232,5 +235,16 @@
       }
     }
   ],
-  "winConditions": 2
+
+  "winConditions": 2,
+
+  "name": "Adición",
+
+  "description": "Es un mecanismo de adición, donde se rompe el enlace pi (enlace doble) de la cadena principal, para poder añadir otro átomo.",
+
+  "formula": "<msub><mi>CH</mi><mn>3</mn></msub><mi>CH</mi><mi>CH</mi><msub><mi>CH</mi><mn>3</mn></msub><mo>+</mo><msub><mi>Br</mi><mn>2</mn></msub><mo>&#8594;</mo><msub><mi>CH</mi><mn>3</mn></msub> <mi>CH</mi><mfenced><mi>Br</mi></mfenced><mi>CH</mi><mfenced><mi>Br</mi></mfenced><msub> <mi>CH</mi><mn>3</mn></msub>",
+
+  "help": "Prestar atención al doble enlace y al movimiento de electrones del mismo. Fijarse en la estereoisomería del producto (CIS o TRANS).",
+
+  "winMessage": "Has completado el mecanismo de reacción de adición! Este mecanismo de reacción es importante para la generación de disolventes industriales."
 }

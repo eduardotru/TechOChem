@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Mecha React</title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Importing Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Importint proprietary CSS -->
+  <link rel="stylesheet" href="./css/styles.css">
+  <!-- Let the browser know the website is optimized for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="blue-grey lighten-5">
+  <ul id="dropdown1" class="dropdown-content">
+    <li><a href="./mecanismo.html?mecanismo=oxidacion">Oxidación</a></li>
+    <li><a href="./mecanismo.html?mecanismo=rupturaDelEter">Ruptura del Éter</a></li>
+    <li><a href="./mecanismo.html?mecanismo=adicion">Adición</a></li>
+    <li><a href="./mecanismo.html?mecanismo=dielsAlder">Diels-Alder</a></li>
+    <li><a href="./mecanismo.html?mecanismo=sustitucionNucleofilica">Sustitución Nucleofílica</a></li>
+  </ul>
+  <ul id="mobile-menu" class="sidenav">
+    <li><a class="subheader">Selecciona el nivel</a></li>
+    <li><div class="divider"></div></li> 
+    <li><a class="waves-effect indigo-text" href="./mecanismo.html?mecanismo=oxidacion">Oxidación</a></li>
+    <li><a class="waves-effect indigo-text" href="./mecanismo.html?mecanismo=rupturaDelEter">Ruptura del Éter</a></li>
+    <li><a class="waves-effect indigo-text" href="./mecanismo.html?mecanismo=adicion">Adición</a></li>
+    <li><a class="waves-effect indigo-text" href="./mecanismo.html?mecanismo=dielsAlder">Diels-Alder</a></li>
+    <li><a class="waves-effect indigo-text" href="./mecanismo.html?mecanismo=sustitucionNucleofilica">Sustitución Nucleofílica</a></li>
+  </ul>
+  <nav>
+    <div class="nav-wrapper indigo">
+      <a href="./index.html" class="brand-logo navLogo noOutline">Mecha React</a>
+      <a href="#" data-target="mobile-menu" class="sidenav-trigger">
+        <i class="material-icons">menu</i>
+      </a>
+      <ul class="right hide-on-med-and-down">
+        <li>
+          <a class="dropdown-trigger noOutline" href="#" data-target="dropdown1">
+            Selecciona el nivel<i class="material-icons right">arrow_drop_down</i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div id="topSection" class="container">
+    <div class="section">
+      <h1 id="mecanismName" class="header center-align indigo-text">
+        <!-- Dynamically loaded content goes here -->
+      </h1>
+      <div class="row center-align marginBot2">
+        <h5 id="description" class="header col s12 light flow">
+          <!-- Dynamically loaded content goes here -->
+        </h5>
+        <h4 id="mathContainer" class="col s12">
+          <math id="formula" xmlns="http://www.w3.org/1998/Math/MathML">
+            <!-- Dynamically loaded content goes here -->
+          </math>
+        </h4>
+      </div>
+      <div class="row marginBot2">
+        <div class="col s12 marginBot1 center-align">
+          <a id="help" class="btn-large waves-effect waves-light deep-purple">Ayuda</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div id="canvasContainer" class="col s12 m12 center-align grey lighten-3">
+        <div id="canvas" style="border: 1px; border-color: black; border-style: solid;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Importing JQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <!-- Importing Materialize Javascript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <!-- Importing Konva.js for HTML5 canvas manipulation -->
+  <script src="https://unpkg.com/konva@2.4.2/konva.min.js"></script>
+  <!-- Importing MathJax to render mathematical / chemical formulas -->
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+  <!-- Importing SweetAlert2 for nice alerts -->
+  <script src="./js/sweetalert2.all.min.js"></script>
+  <!-- Importing proprietary Javascript -->
+  <script type="module" src="./js/mecanismo.js"></script>
+</body>
+</html>
