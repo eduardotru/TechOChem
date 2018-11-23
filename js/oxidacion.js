@@ -2,6 +2,11 @@ import { createAtomsInLayer, createBondsInLayer } from './atoms.js';
 import { beginInteractionInLayer, setWinConditions } from './atomsInteraction.js';
 import { fitStageIntoParentContainer } from './responsiveCanvas.js';
 
+// Initializes the Materialize sidenav component.
+$(document).ready(function(){
+  $('.sidenav').sidenav();
+});
+
 /** @type {number} Virtual width of the canvas */
 const stageWidth = 1000;
 /** @type {number} Virtual height of the canvas */

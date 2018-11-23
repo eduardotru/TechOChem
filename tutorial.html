@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Mecha React</title>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Importing Materialize CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <!-- Importint proprietary CSS -->
+  <link rel="stylesheet" href="./css/styles.css">
+  <!-- Let the browser know the website is optimized for mobile -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="blue-grey lighten-5">
+  <div class="container">
+    <div class="section">
+      <h1 class="header center-align"><a class="indigo-text noOutline" href="./index.html">Mecha React</a></h1>
+      <div class="section">
+        <div class="row center-align">
+          <h5 class="header col s12 deep-purple-text bold">La interfaz</h5>
+          <p class="col s12 mediumText">
+            Al acceder a la página de los ejercicios dando click en el botón <i>Empezar</i> en el
+            menú de inicio, aparecerá en pantalla una interfaz como la que se muestra en las
+            siguientes imágenes. Los elementos de dicha página se detallan a continuación:
+          </p>
+        </div>
+        <div class="row">
+          <div class="col s12">
+            <img class="containerWidth interfaceImage" src="./img/tutorial-img-1.PNG" alt="interfaz">
+          </div>
+          <div class="col s12 justify-align">
+            <ol class="mediumText">
+              <li class="deep-purple-text text-lighten-1 bold">
+                Título de la aplicación:
+                <span class="defaultColor defaultWeight">
+                  Al dar click, el usuario será llevado a la página de inicio, donde se desplegará
+                  el menú principal.
+                </span>
+              </li>
+              <li class="deep-purple-text text-lighten-1 bold">
+                Menú desplegable:
+                <span class="defaultColor defaultWeight">
+                  El usuario podrá seleccionar uno de los mecanismos de reacción disponibles en la
+                  aplicación para posteriormente resolverlo.
+                </span>
+              </li>
+              <li class="deep-purple-text text-lighten-1 bold">
+                Información del mecanismo de reacción:
+                <span class="defaultColor defaultWeight">
+                  El usuario podrá ver el nombre del mecanismo de reacción actual, una pequeña
+                  descripción del mismo y la fórmula química de la reacción que resolverá utilizando
+                  el mecanismo.
+                </span>
+              </li>
+              <li class="deep-purple-text text-lighten-1 bold">
+                Botón de ayuda:
+                <span class="defaultColor defaultWeight">
+                  El usuario podrá presionar este botón para recibir una pista sobre cómo resolver
+                  la reacción química en el caso de que esté perdido.
+                </span>
+              </li>
+              <li class="deep-purple-text text-lighten-1 bold">
+                Marco interactivo:
+                <span class="defaultColor defaultWeight">
+                  Sección en la que el usuario podrá interactuar con las moléculas para tratar de
+                  resolver la reacción. Las moléculas representadas en esta sección serán los
+                  reactivos de la reacción y el objetivo será tratar de llegar a los productos.
+                </span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider grey lighten-1"></div>
+
+      <div class="section center-align">
+        <div class="row">
+          <h5 class="header col s12 deep-purple-text bold">Interactividad</h5>
+          <p class="col s12 mediumText">
+            Existen diferentes formas en las que el usuario puede interactuar con las moléculas. Una
+            de ellas y quizás la más utilizada en los mecanismos de reacción contenidos en esta
+            aplicación es la de romper enlaces, tal como se ilustra en la siguiente animación. No
+            obstante, si se elige el enlace equivocado, este no se romperá.
+          </p>
+          <div class="col s12">
+            <img class="containerWidth" src="./img/tutorial-img-2.gif"
+              alt="Imagen que ilustra la forma interactiva de romper enlaces">
+          </div>
+        </div>
+        <div class="row">
+          <p class="col s12 mediumText">
+            Otro de los eventos interactivos más utilizados en Mecha React es el de arrastrar los
+            átomos de un elemento. Esto es necesario cuando se requiere formar enlaces con otros
+            átomos para completar la reacción. Por lo general los átomos no se pueden arrastrar
+            desde el inicio, sino que se tiene que cumplir una condición para ello (por ejemplo,
+            el rompimiento de un enlace). Nótese en la animación que el átomo al que está destinado
+            a unirse otro átomo se ilumina cuando el usuario le acerca este último.
+          </p>
+          <div class="col s12">
+            <img class="containerWidth" src="./img/tutorial-img-3.gif"
+              alt="Imagen que muestra la forma interactiva de formar enlaces entre átomos">
+          </div>
+        </div>
+        <div class="row">
+          <p class="col s12 mediumText">
+            Es importante que el usuario preste atención a qué eventos interactivos lleva a cabo y
+            a cuándo los realiza, pues a veces, acciones que había ejecutado y que no habían surtido
+            efecto pudiesen, después de un evento, habilitarse y ahora sí detonar algo al momento de
+            ser ejecutadas nuevamente por el usuario. Véase un ejemplo a continuación, en el que el
+            enlace entre un átomo de Cloro y uno de Aluminio no puede destruirse si no hasta que
+            otro enlace (entre un átomo de Carbono y uno de Hidrógeno) es eliminado.
+          </p>
+          <div class="col s12">
+            <img class="containerWidth" src="./img/tutorial-img-4.gif"
+              alt="Imagen que muestra un evento interactivo que sólo se puede detonar cuando otro
+                   ya se ha ejecutado">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Importing Materialize Javascript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
