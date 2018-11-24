@@ -1,7 +1,7 @@
 import { createAtomsInLayer, createBondsInLayer } from './atoms.js';
 import { beginInteractionInLayer, setWinConditions } from './atomsInteraction.js';
 import { fitStageIntoParentContainer } from './responsiveCanvas.js';
-import { init, getUrlParameter } from './commonFunctions.js';
+import { init, getUrlParameter, loadScriptAsync } from './commonFunctions.js';
 
 init();
 
@@ -31,12 +31,17 @@ $.ajax({
     $('#help').on('click', () => {
       swal('Oxidación', data.help, 'question');
     });
+    
     createAtomsInLayer(data.atoms, layer);
     createBondsInLayer(data.bonds, layer);
     beginInteractionInLayer(layer, stage);
     setWinConditions(data.winConditions, data.winMessage);
     stage.add(layer);
-    fitStageIntoParentContainer(stage, stageWidth, stageHeight, '#canvasContainer');  
+    fitStageIntoParentContainer(stage, stageWidth, stageHeight, '#canvasContainer');
+
+    // Loads the MathJax script asynchronously after the formula is added to the HTML, so that, when
+    // the script is executed, it process the formula.
+    loadScriptAsync('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML');
   },
   error: (err) => {
     console.log(err);

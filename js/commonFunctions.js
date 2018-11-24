@@ -26,4 +26,15 @@ const getUrlParameter = (paramName) => {
   return null;
 }
 
-export { init, getUrlParameter };
+/**
+ * Loads a JavaScript file asynchronously.
+ * @param {string} url URL of the script to be loaded. 
+ */
+const loadScriptAsync = (url) => {
+  $.ajax({
+    url: url,
+    dataType: 'script'
+  });
+}
+
+export { init, getUrlParameter, loadScriptAsync };
